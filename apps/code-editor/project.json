@@ -1,0 +1,90 @@
+{
+  "name": "code-editor",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/code-editor/src",
+  "prefix": "the-eye",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/code-editor",
+        "index": "apps/code-editor/src/index.html",
+        "main": "apps/code-editor/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/code-editor/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/code-editor/src/favicon.ico",
+          "apps/code-editor/src/assets"
+        ],
+        "styles": ["apps/code-editor/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "code-editor:build:production"
+        },
+        "development": {
+          "browserTarget": "code-editor:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "code-editor:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/code-editor/**/*.ts",
+          "apps/code-editor/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/code-editor/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
