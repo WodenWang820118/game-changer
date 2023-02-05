@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+  height: 100%;
+  padding-top: 10px;
+
+  &__menu {
+    flex: 0 0 50px;
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid black;
+    height: 100%;
+
+    &__files {
+      flex: 0 0 200px;
+      height: 100%;
+      overflow: auto;
+      border: 1px solid black;
+    }
+
+    &__editor {
+      flex: 1 1 0;
+      height: 100%;
+      overflow: auto;
+      border: 1px solid rgb(136, 53, 53);
+    }
+
+    &__renderer {
+      flex: 1 1 0;
+      height: 100%;
+      overflow: auto;
+      border: 1px solid rgb(136, 53, 53);
+    }
+  }
+}

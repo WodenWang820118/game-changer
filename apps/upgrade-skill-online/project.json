@@ -7,19 +7,25 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/upgrade-skill-online",
         "index": "apps/upgrade-skill-online/src/index.html",
         "main": "apps/upgrade-skill-online/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/upgrade-skill-online/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/upgrade-skill-online/src/favicon.ico",
           "apps/upgrade-skill-online/src/assets"
         ],
-        "styles": ["apps/upgrade-skill-online/src/styles.scss"],
+        "styles": [
+          "apps/upgrade-skill-online/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -69,7 +75,9 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "apps/upgrade-skill-online/**/*.ts",
@@ -79,7 +87,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/upgrade-skill-online/jest.config.ts",
         "passWithNoTests": true
