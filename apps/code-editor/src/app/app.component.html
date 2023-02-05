@@ -3,7 +3,22 @@
     <button (click)="onPlay()">Play</button>
   </div>
   <div class="container__content">
-    <div class="container__content__files">files</div>
+    <div class="container__content__files">
+      <div
+        class="container__content__files__html"
+        #html
+        id="html-editor"
+        (click)="selectEditor(html)">
+        HTML
+      </div>
+      <div
+        class="container__content__files__Css"
+        #css
+        id="css-editor"
+        (click)="selectEditor(css)">
+        CSS
+      </div>
+    </div>
     <div class="container__content__editor">
       <the-eye-editor></the-eye-editor>
     </div>

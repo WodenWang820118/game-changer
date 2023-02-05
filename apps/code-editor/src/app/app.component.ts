@@ -1,27 +1,33 @@
-import { Observable, tap, map, switchMap } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { combineLatest, tap } from 'rxjs';
+import { Component } from '@angular/core';
 import { EditorService } from '../services/editor.service';
-import { EditorView } from 'codemirror';
 
 @Component({
   selector: 'the-eye-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'code-editor';
-  editorView: EditorView | undefined;
+
   constructor(private editorService: EditorService) {}
 
-  ngOnInit() {
-    console.log('app init');
-    this.editorService.htmlEditorView$.subscribe(editor => {
-      this.editorView = editor;
-    });
-  }
   onPlay() {
-    console.log('play');
-    console.log(this.editorView?.state.doc);
-    this.editorService.setHtml(this.editorView?.state.doc.toString() as string);
+    console.log('onPlay');
+    combineLatest([
+      this.editorService.htmlEditor$,
+      this.editorService.cssEditor$,
+    ])
+      .pipe(
+        tap(([htmlEditor, cssEditor]) => {
+          this.editorService.setHtml(htmlEditor.state.doc.toString() as string);
+          this.editorService.setCss(cssEditor.state.doc.toString() as string);
+        })
+      )
+      .subscribe();
+  }
+
+  selectEditor(editor: HTMLElement) {
+    this.editorService.selectEditor(editor.id);
   }
 }

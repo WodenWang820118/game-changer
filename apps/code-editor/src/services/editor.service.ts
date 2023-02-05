@@ -1,46 +1,29 @@
 import { Injectable } from '@angular/core';
 import { EditorView } from 'codemirror';
 import { htmlEditorExtensions, cssEditorExtensions } from './editor-extensions';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EditorService {
-  htmlEditorBehaviorSubject: BehaviorSubject<EditorView>;
-  htmlEditorView$: Observable<EditorView>;
-  htmlSubject = new BehaviorSubject(`<div>Hello World</div>`);
+  htmlEditorBehaviorSubject: BehaviorSubject<EditorView> =
+    new BehaviorSubject<EditorView>(new EditorView());
+  htmlEditor$ = this.htmlEditorBehaviorSubject.asObservable();
+  htmlSubject = new BehaviorSubject(`<div class="red">Hello World</div>`);
   html$ = this.htmlSubject.asObservable();
 
-  cssEidtorBehaviorSubject: BehaviorSubject<EditorView>;
-  cssEditorView$: Observable<EditorView>;
-  cssSubject = new BehaviorSubject(`body {
-    background-color: red;
-  }
-  `);
+  cssEditorBehaviorSubject: BehaviorSubject<EditorView> =
+    new BehaviorSubject<EditorView>(new EditorView());
+  cssEditor$ = this.cssEditorBehaviorSubject.asObservable();
+  cssSubject = new BehaviorSubject('.red { color: red; }');
   css$ = this.cssSubject.asObservable();
 
-  jsEditorBehaviorSubject: BehaviorSubject<EditorView>;
-  jsEditorView$: Observable<EditorView>;
+  jsEditorBehaviorSubject: BehaviorSubject<EditorView> =
+    new BehaviorSubject<EditorView>(new EditorView());
+  jsEditor$ = this.jsEditorBehaviorSubject.asObservable();
   jsSubject = new BehaviorSubject(`console.log('Hello World');`);
   js$ = this.jsSubject.asObservable();
-
-  constructor() {
-    this.htmlEditorBehaviorSubject = new BehaviorSubject<EditorView>(
-      new EditorView()
-    );
-    this.htmlEditorView$ = this.htmlEditorBehaviorSubject.asObservable();
-
-    this.cssEidtorBehaviorSubject = new BehaviorSubject<EditorView>(
-      new EditorView()
-    );
-    this.cssEditorView$ = this.cssEidtorBehaviorSubject.asObservable();
-
-    this.jsEditorBehaviorSubject = new BehaviorSubject<EditorView>(
-      new EditorView()
-    );
-    this.jsEditorView$ = this.jsEditorBehaviorSubject.asObservable();
-  }
 
   initHtmlEditorView(selector: string) {
     // 1) Create an EditorView
@@ -59,40 +42,68 @@ export class EditorService {
     });
 
     // 3) Emit the EditorView to the subject
-    this.setHtmlEditor(editorView);
-  }
-
-  setHtmlEditor(editor: EditorView) {
-    this.htmlEditorBehaviorSubject.next(editor);
+    this.htmlEditorBehaviorSubject.next(editorView);
   }
 
   setHtml(html: string) {
     this.htmlSubject.next(html);
   }
 
-  initCssEditor(selector: string) {
+  initCssEditorView(selector: string) {
+    const editorView = new EditorView({
+      extensions: cssEditorExtensions,
+      parent: document.querySelector(selector) as HTMLElement,
+    });
+
+    editorView.dispatch({
+      changes: {
+        from: 0,
+        insert: this.cssSubject.getValue(),
+        to: editorView.state.doc.length,
+      },
+    });
+
+    this.cssEditorBehaviorSubject.next(editorView);
+  }
+
+  setCss(css: string) {
+    this.cssSubject.next(css);
+  }
+
+  initJsEditorView(selector: string) {
     const editor = new EditorView({
       extensions: cssEditorExtensions,
       parent: document.querySelector(selector) as HTMLElement,
     });
 
-    this.setHtmlEditor(editor);
-  }
-
-  setCssEditor(editor: EditorView) {
-    this.cssEidtorBehaviorSubject.next(editor);
-  }
-
-  initJsEditor(selector: string) {
-    const editor = new EditorView({
-      extensions: cssEditorExtensions,
-      parent: document.querySelector(selector) as HTMLElement,
-    });
-
-    this.setHtmlEditor(editor);
-  }
-
-  setJsEditor(editor: EditorView) {
     this.jsEditorBehaviorSubject.next(editor);
+  }
+
+  selectEditor(editorId: string) {
+    const htmlEditor = document.querySelector('#cm-html-editor') as HTMLElement;
+    const cssEditor = document.querySelector('#cm-css-editor') as HTMLElement;
+    const jsEditor = document.querySelector('#cm-js-editor') as HTMLElement;
+    switch (editorId) {
+      case 'html-editor':
+        htmlEditor.style.display = 'block';
+        cssEditor.style.display = 'none';
+        jsEditor.style.display = 'none';
+        break;
+      case 'css-editor':
+        htmlEditor.style.display = 'none';
+        cssEditor.style.display = 'block';
+        jsEditor.style.display = 'none';
+        break;
+      case 'js-editor':
+        htmlEditor.style.display = 'none';
+        cssEditor.style.display = 'none';
+        jsEditor.style.display = 'block';
+        break;
+      default:
+        htmlEditor.style.display = 'block';
+        cssEditor.style.display = 'none';
+        jsEditor.style.display = 'none';
+        break;
+    }
   }
 }

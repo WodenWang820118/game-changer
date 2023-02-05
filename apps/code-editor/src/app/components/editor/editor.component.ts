@@ -16,7 +16,13 @@ import { EditorService } from '../../../services/editor.service';
     `,
   ],
   template: `<div class="editor">
-    <div class="cm-editor" #editor>
+    <div id="cm-html-editor" #editor>
+      <div tabindex="-1" class="cm-scroller"></div>
+    </div>
+    <div id="cm-css-editor" #editor>
+      <div tabindex="-1" class="cm-scroller"></div>
+    </div>
+    <div id="cm-js-editor" #editor>
       <div tabindex="-1" class="cm-scroller"></div>
     </div>
   </div> `,
@@ -25,6 +31,10 @@ export class EditorComponent implements OnInit {
   constructor(private readonly editorService: EditorService) {}
 
   ngOnInit() {
-    this.editorService.initHtmlEditorView('.cm-editor');
+    // TODO: read from the store or init with default values
+    this.editorService.initHtmlEditorView('#cm-html-editor');
+    this.editorService.initCssEditorView('#cm-css-editor');
+    this.editorService.initJsEditorView('#cm-js-editor');
+    this.editorService.selectEditor('#cm-html-editor');
   }
 }
