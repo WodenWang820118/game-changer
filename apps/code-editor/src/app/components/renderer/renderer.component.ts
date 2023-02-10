@@ -9,6 +9,13 @@ import { Observable, map, tap } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   selector: 'the-eye-renderer',
+  styles: [
+    `
+      .renderer {
+        padding: 1rem;
+      }
+    `,
+  ],
   template: `<div class="renderer">
     <div [innerHTML]="safeHtml$ | async"></div>
   </div>`,

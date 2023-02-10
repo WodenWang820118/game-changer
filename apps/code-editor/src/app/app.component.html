@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container__menu">
-    <button (click)="onPlay()">Play</button>
+    <the-eye-play-button (click)="onPlay()"></the-eye-play-button>
   </div>
   <div class="container__content">
     <div class="container__content__files">
@@ -8,15 +8,29 @@
         class="container__content__files__html"
         #html
         id="html-editor"
+        tabindex="0"
         (click)="selectEditor(html)">
-        HTML
+        <img
+          src="./assets/html5.svg"
+          id="html5-logo"
+          alt="html"
+          width="20"
+          height="20" />
+        index.html
       </div>
       <div
-        class="container__content__files__Css"
+        class="container__content__files__css"
         #css
         id="css-editor"
+        tabindex="1"
         (click)="selectEditor(css)">
-        CSS
+        <img
+          src="./assets/css3-alt.svg"
+          id="html5-logo"
+          alt="html"
+          width="20"
+          height="20" />
+        style.css
       </div>
     </div>
     <div class="container__content__editor">
