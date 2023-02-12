@@ -1,1 +1,43 @@
-<the-eye-nx-welcome></the-eye-nx-welcome>
+<div class="container">
+  <div class="container__menu">
+    <the-eye-play-button (click)="onPlay()"></the-eye-play-button>
+  </div>
+  <div class="container__content">
+    <div class="container__content__files">
+      <div
+        class="container__content__files__html"
+        #html
+        id="html-editor"
+        tabindex="0"
+        (click)="selectEditor(html)">
+        <img
+          src="./assets/html5.svg"
+          id="html5-logo"
+          alt="html"
+          width="20"
+          height="20" />
+        index.html
+      </div>
+      <div
+        class="container__content__files__css"
+        #css
+        id="css-editor"
+        tabindex="1"
+        (click)="selectEditor(css)">
+        <img
+          src="./assets/css3-alt.svg"
+          id="html5-logo"
+          alt="html"
+          width="20"
+          height="20" />
+        style.css
+      </div>
+    </div>
+    <div class="container__content__editor">
+      <the-eye-editor></the-eye-editor>
+    </div>
+    <div class="container__content__renderer">
+      <the-eye-renderer></the-eye-renderer>
+    </div>
+  </div>
+</div>
