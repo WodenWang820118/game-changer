@@ -8,7 +8,7 @@ import { Observable, map, tap } from 'rxjs';
 @Component({
   standalone: true,
   imports: [CommonModule],
-  selector: 'the-eye-renderer',
+  selector: 'game-renderer',
   styles: [
     `
       .renderer {

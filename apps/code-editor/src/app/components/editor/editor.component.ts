@@ -4,7 +4,7 @@ import { EditorService } from '../../../services/editor.service';
 // generate the standalone component typescript template
 @Component({
   standalone: true,
-  selector: 'the-eye-editor',
+  selector: 'game-editor',
   styles: [
     `
       .cm-content {

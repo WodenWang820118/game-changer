@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'the-eye-play-button',
+  selector: 'game-play-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
   styles: [
