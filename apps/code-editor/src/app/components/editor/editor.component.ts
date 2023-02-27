@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { EditorService } from '../../../services/editor.service';
 
-// generate the standalone component typescript template
 @Component({
   standalone: true,
   selector: 'game-editor',
@@ -15,26 +20,17 @@ import { EditorService } from '../../../services/editor.service';
       }
     `,
   ],
-  template: `<div class="editor">
-    <div id="cm-html-editor" #editor>
-      <div tabindex="-1" class="cm-scroller"></div>
-    </div>
-    <div id="cm-css-editor" #editor>
-      <div tabindex="-1" class="cm-scroller"></div>
-    </div>
-    <div id="cm-js-editor" #editor>
-      <div tabindex="-1" class="cm-scroller"></div>
-    </div>
-  </div> `,
+  template: `<div id="cm-editor" #editor>
+    <div tabindex="-1" class="cm-scroller"></div>
+  </div>`,
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements AfterViewInit {
+  @Input() editorExtension = 'html';
+  @ViewChild('editor') editorElement!: ElementRef<HTMLDivElement>;
+
   constructor(private readonly editorService: EditorService) {}
 
-  ngOnInit() {
-    // TODO: read from the store or init with default values
-    this.editorService.initHtmlEditorView('#cm-html-editor');
-    this.editorService.initCssEditorView('#cm-css-editor');
-    this.editorService.initJsEditorView('#cm-js-editor');
-    this.editorService.selectEditor('#cm-html-editor');
+  ngAfterViewInit() {
+    this.editorService.initEditorView(this.editorExtension, this.editorElement);
   }
 }

@@ -1,95 +1,81 @@
-$dark: #0e1525;
-$dark-editor: #2a313d;
-$dark-border: #b3b9bf;
-$dark-text: #c2c8cc;
-$card-border-radius: 10px;
-$padding: 50px;
-$column-gap: 10px;
-
-@mixin fileItem($color) {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  width: 80%;
-  padding: 10px;
-  border-radius: 8px;
-
-  &:hover {
-    cursor: pointer;
-    background: $color;
-  }
-
-  &:focus {
-    background: $color;
-  }
-}
-
-@mixin card($background, $border) {
-  flex: 1 1 0;
-  height: 100%;
-  overflow: auto;
-  background: $background;
-  border: $border;
-  border-radius: $card-border-radius;
-}
+@import '../styles.scss';
 
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: baseline;
-  align-items: center;
-  height: 100vh;
-  background: $dark;
+  &__nav {
+    --shadow-height: .5rem;
+    // TODO: differernt from the original
+    --shadow-gradient: linear-gradient(to bottom, rgba(239, 239, 239, 0.8) 0%, rgba(240, 231, 231, 0.118) 30%, transparent 100%);
+    position: fixed;
+    width: $viewport-w;
+    height: $nav-height;
+    margin: 0 auto;
+    background-color: $back;
+    font-family: $font-family-sans-serif;
+    z-index: 100;
+    user-select: none;
+    transition: transform .2s;
 
-  &__menu {
-    flex: 0 0 $padding;
+    ::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: var(--shadow-height);
+      left: 0;
+      bottom: calc(-0.5 * var(--shadow-height));
+      background: var(--shadow-gradient);
+    }
+
+    @include nav-screen($screen-tablet2);
+
+    &__logo {
+      @extend .logo;
+    }
+
+    &__external {
+      @include external-screen($screen-tablet2);
+    }
   }
 
-  &__content {
-    width: calc(100% - $padding);
-    height: calc(100% - $padding);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: $column-gap;
+  &__tutorial {
+    padding: 0;
+    position: relative;
+    margin: 0 auto;
+    padding: $nav-height 0 0 0;
+    overflow: auto;
 
-    &__files {
-      flex: 0 0 (4 * $padding);
-      height: 100%;
-      overflow: auto;
-      color: $dark-text;
+    &__outer {
+      position: relative;
+      height: calc($viewport-h - $nav-height);
+      overflow: hidden;
+      padding: 0 0 42px;
+      box-sizing: border-box;
+
+      &__viewport {
+        @include viewport-screen($screen-tablet1);
+      }
+    }
+
+    &__text {
+      @extend .tutorial-text;
+    }
+
+    &__repl {
       display: flex;
       flex-direction: column;
-      gap: $column-gap;
-      align-items: baseline;
-
-      &__html {
-        @include fileItem($dark-editor);
-
-        img {
-          filter: invert(42%) sepia(78%) saturate(3580%) hue-rotate(348deg)
-            brightness(93%) contrast(90%);
-          vertical-align: middle;
-        }
-      }
-
-      &__css {
-        @include fileItem($dark-editor);
-
-        img {
-          filter: invert(40%) sepia(96%) saturate(1404%) hue-rotate(195deg)
-            brightness(97%) contrast(98%);
-          vertical-align: middle;
-        }
-      }
+      justify-content: flex-start;
+      overflow: auto;
     }
 
     &__editor {
-      @include card($dark-editor, 1px solid $dark-border);
+      @extend .editor;
     }
 
-    &__renderer {
-      @include card(white, 1px solid $dark-border);
+    &__preview {
+      @extend .preview;
+    }
+
+    &__console {
+      @extend .console;
     }
   }
 }

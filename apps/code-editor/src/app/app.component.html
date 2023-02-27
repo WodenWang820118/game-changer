@@ -1,43 +1,66 @@
 <div class="container">
-  <div class="container__menu">
-    <game-play-button (click)="onPlay()"></game-play-button>
-  </div>
-  <div class="container__content">
-    <div class="container__content__files">
-      <div
-        class="container__content__files__html"
-        #html
-        id="html-editor"
-        tabindex="0"
-        (click)="selectEditor(html)">
-        <img
-          src="./assets/html5.svg"
-          id="html5-logo"
-          alt="html"
-          width="20"
-          height="20" />
-        index.html
+  <nav class="container__nav">
+    <a
+      href="#"
+      class="container__nav__logo"
+      style="background-image: url('assets/icons8-artstation-48.svg')"></a>
+    <ul class="container__nav__links">
+      <li><a>Tutorial</a></li>
+      <li><a>Docs</a></li>
+      <li><a>Examples</a></li>
+      <li><a>REPL</a></li>
+      <li><a>Blog</a></li>
+      <li><a>FAQ</a></li>
+    </ul>
+    <ul class="container__nav__external">
+      <li><a href="">Kit</a></li>
+      <li><a href="">Discord</a></li>
+      <li><a href="">GitHub</a></li>
+    </ul>
+  </nav>
+  <main id="main" class="container__tutorial">
+    <div class="container__tutorial__outer">
+      <div class="container__tutorial__outer__viewport">
+        <div class="container__tutorial__text">
+          <div class="container__tutorial__table-of-contents"></div>
+        </div>
+        <div class="container__tutorial__repl">
+          <div class="container__tutorial__editor" gameDivResizable>
+            <div class="container__tutorial__editor__viewport">
+              <mat-tab-group
+                mat-stretch-tabs="false"
+                mat-align-tabs="start"
+                animationDuration="0ms"
+                fitInkBarToContent>
+                <mat-tab
+                  *ngFor="let editor of editors"
+                  label="{{ editor }}"
+                  id="{{ editor.split('.')[1] }}">
+                  <game-editor
+                    [editorExtension]="editor.split('.')[1]"></game-editor>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+          <div
+            class="container__tutorial__preview"
+            style="border: 1px solid"
+            gameDivResizable>
+            <div class="container__tutorial__preview__viewport">
+              <game-renderer></game-renderer>
+            </div>
+          </div>
+          <div
+            class="container__tutorial__console"
+            style="border: 1px solid"
+            gameDivResizable>
+            <div class="container__tutorial__console__viewport">
+              <!-- <game-console></game-console> -->
+              Console
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        class="container__content__files__css"
-        #css
-        id="css-editor"
-        tabindex="1"
-        (click)="selectEditor(css)">
-        <img
-          src="./assets/css3-alt.svg"
-          id="html5-logo"
-          alt="html"
-          width="20"
-          height="20" />
-        style.css
-      </div>
     </div>
-    <div class="container__content__editor">
-      <game-editor></game-editor>
-    </div>
-    <div class="container__content__renderer">
-      <game-renderer></game-renderer>
-    </div>
-  </div>
+  </main>
 </div>

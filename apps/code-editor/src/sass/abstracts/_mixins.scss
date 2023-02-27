@@ -1,0 +1,45 @@
+@mixin external-screen($screen-size) {
+  @media (min-width: $screen-size) {
+    width: $logo-w;
+    padding: 0 $side-nav 0 0;
+    justify-content: end;
+  }
+}
+
+@mixin viewport-screen($screen-size) {
+  @media (min-width: $screen-size) {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(33.333%, $sidebar-large-w) auto;
+    grid-auto-rows: 100%;
+    transition: none;
+  }
+}
+
+@mixin nav-screen($screen-size) {
+  @media (min-width: $screen-size) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    ul {
+      display: flex;
+      width: auto;
+      height: 100%;
+      margin: 0;
+      list-style: none;
+
+      li {
+        margin: 0 0.5rem;
+        padding: 0;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+    }
+  }
+}

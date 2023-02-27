@@ -1,0 +1,14 @@
+.tutorial-text {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-right: 1px solid $secondary;
+  background-color: $secondary;
+  color: $sidebar-text;
+
+  &__table-of-contents {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+  }
+}

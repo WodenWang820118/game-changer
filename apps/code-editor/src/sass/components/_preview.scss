@@ -1,0 +1,13 @@
+.preview {
+  position: relative;
+  width: 100%;
+  height: $viewport-preview-h;
+  min-height: $viewport-preview-min-h;
+  background: $back;
+  flex: 0 1 auto;
+  overflow: auto;
+
+  &__viewport {
+    height: 100%;
+  }
+}
