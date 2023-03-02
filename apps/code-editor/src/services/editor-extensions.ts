@@ -16,13 +16,20 @@ import { oneDark } from '../themes/one-dark';
 const commonExtensions = [
   basicSetup,
   keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
-  oneDark,
   history(),
   new Compartment().of(EditorState.tabSize.of(2)),
 ];
 
-export const htmlEditorExtensions = [...commonExtensions, html()];
+export const htmlDarkEditorExtensions = [...commonExtensions, oneDark, html()];
 
-export const cssEditorExtensions = [...commonExtensions, css()];
+export const cssDarkEditorExtensions = [...commonExtensions, oneDark, css()];
 
-export const jsEditorExtensions = [...commonExtensions, javascript()];
+export const jsDarkEditorExtensions = [
+  ...commonExtensions,
+  oneDark,
+  javascript(),
+];
+
+export const htmlLightEditorExtensions = [...commonExtensions, html()];
+export const cssLightEditorExtensions = [...commonExtensions, css()];
+export const jsLightEditorExtensions = [...commonExtensions, javascript()];

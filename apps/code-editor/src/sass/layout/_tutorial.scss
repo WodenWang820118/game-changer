@@ -1,0 +1,19 @@
+.tutorial {
+  padding: 0;
+  position: relative;
+  margin: 0 auto;
+  padding: $nav-height 0 0 0;
+  overflow: auto;
+
+  &__outer {
+    position: relative;
+    height: calc($viewport-h - $nav-height);
+    overflow: hidden;
+    padding: 0 0 42px;
+    box-sizing: border-box;
+
+    &__viewport {
+      @include viewport-screen($screen-tablet1);
+    }
+  }
+}

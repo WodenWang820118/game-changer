@@ -1,11 +1,11 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { EditorView } from 'codemirror';
 import {
-  htmlEditorExtensions,
-  cssEditorExtensions,
-  jsEditorExtensions,
+  htmlLightEditorExtensions,
+  cssLightEditorExtensions,
+  jsLightEditorExtensions,
 } from './editor-extensions';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,13 +26,13 @@ export class EditorService {
   jsEditorBehaviorSubject: BehaviorSubject<EditorView> =
     new BehaviorSubject<EditorView>(new EditorView());
   jsEditor$ = this.jsEditorBehaviorSubject.asObservable();
-  jsSubject = new BehaviorSubject(`console.log('Hello World');`);
+  jsSubject = new BehaviorSubject(`console.log("hi")`);
   js$ = this.jsSubject.asObservable();
 
   initHtmlEditorView(elementRef: ElementRef) {
     // 1) Create an EditorView
     const editorView = new EditorView({
-      extensions: htmlEditorExtensions,
+      extensions: htmlLightEditorExtensions,
       parent: elementRef.nativeElement,
     });
 
@@ -55,7 +55,7 @@ export class EditorService {
 
   initCssEditorView(elementRef: ElementRef) {
     const editorView = new EditorView({
-      extensions: cssEditorExtensions,
+      extensions: cssLightEditorExtensions,
       parent: elementRef.nativeElement,
     });
 
@@ -76,7 +76,7 @@ export class EditorService {
 
   initJsEditorView(elementRef: ElementRef) {
     const editorView = new EditorView({
-      extensions: jsEditorExtensions,
+      extensions: jsLightEditorExtensions,
       parent: elementRef.nativeElement,
     });
 

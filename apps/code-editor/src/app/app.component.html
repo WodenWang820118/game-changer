@@ -1,37 +1,30 @@
-<div class="container">
-  <nav class="container__nav">
-    <a
-      href="#"
-      class="container__nav__logo"
-      style="background-image: url('assets/icons8-artstation-48.svg')"></a>
-    <ul class="container__nav__links">
-      <li><a>Tutorial</a></li>
-      <li><a>Docs</a></li>
-      <li><a>Examples</a></li>
-      <li><a>REPL</a></li>
-      <li><a>Blog</a></li>
-      <li><a>FAQ</a></li>
-    </ul>
-    <ul class="container__nav__external">
-      <li><a href="">Kit</a></li>
-      <li><a href="">Discord</a></li>
-      <li><a href="">GitHub</a></li>
+<div class="navigation">
+  <a href="#" class="navigation__logo"></a>
+  <game-play-button></game-play-button>
+  <nav class="navigation__nav">
+    <ul class="navigation__list">
+      <li class="navigation__list__item"><a href="">Kit</a></li>
+      <li class="navigation__list__item"><a href="">Discord</a></li>
+      <li class="navigation__list__item"><a href="">GitHub</a></li>
     </ul>
   </nav>
-  <main id="main" class="container__tutorial">
-    <div class="container__tutorial__outer">
-      <div class="container__tutorial__outer__viewport">
-        <div class="container__tutorial__text">
-          <div class="container__tutorial__table-of-contents"></div>
+</div>
+
+<main>
+  <div class="tutorial">
+    <div class="tutorial__outer">
+      <div class="tutorial__outer__viewport">
+        <div class="sidebar">
+          <game-sidebar-nav class="sidebar__nav"></game-sidebar-nav>
+          <game-chapter class="sidebar__markup"></game-chapter>
         </div>
-        <div class="container__tutorial__repl">
-          <div class="container__tutorial__editor" gameDivResizable>
-            <div class="container__tutorial__editor__viewport">
+        <div class="editor-layout">
+          <div class="editor-layout__code-editor" gameDivResizable>
+            <div class="editor-layout__code-editor__viewport">
               <mat-tab-group
                 mat-stretch-tabs="false"
                 mat-align-tabs="start"
-                animationDuration="0ms"
-                fitInkBarToContent>
+                animationDuration="0ms">
                 <mat-tab
                   *ngFor="let editor of editors"
                   label="{{ editor }}"
@@ -42,25 +35,25 @@
               </mat-tab-group>
             </div>
           </div>
-          <div
-            class="container__tutorial__preview"
-            style="border: 1px solid"
-            gameDivResizable>
-            <div class="container__tutorial__preview__viewport">
-              <game-renderer></game-renderer>
+          <div class="editor-layout__code-preview" gameDivResizable>
+            <div class="editor-layout__code-preview__viewport">
+              <mat-tab-group
+                mat-stretch-tabs="false"
+                mat-align-tabs="start"
+                animationDuration="0ms">
+                <mat-tab label="Result">
+                  <game-renderer></game-renderer>
+                </mat-tab>
+              </mat-tab-group>
             </div>
           </div>
-          <div
-            class="container__tutorial__console"
-            style="border: 1px solid"
-            gameDivResizable>
-            <div class="container__tutorial__console__viewport">
-              <!-- <game-console></game-console> -->
-              Console
+          <div class="editor-layout__code-console" gameDivResizable>
+            <div class="editor-layout__code-console__viewport">
+              <game-editor-console></game-editor-console>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </main>
-</div>
+  </div>
+</main>

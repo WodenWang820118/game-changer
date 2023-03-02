@@ -4,7 +4,7 @@ $secondary: #676778;
 $success: #28a745;
 $info: #17a2b8;
 $warning: #ffc107;
-$danger: #dc3545;
+$danger: #ff3e00;
 $light: #f8f9fa;
 $dark: #343a40;
 $back: #ffffff;
@@ -19,8 +19,8 @@ $screen-tablet2: 800px;
 $font-size-sm: 0.875rem; // 14px
 $font-size-md: 1rem; // 16px
 $font-size-lg: 1.5rem; // 24px
-$font-size-xl: 2rem; // 32px
-$h4: 1.8rem;
+$font-size-xl: 1.8rem; // 28px
+$font-size-h2: 2.6rem; // 42px
 
 // Font Weights
 $font-weight-light: 300;
@@ -50,10 +50,15 @@ $spacing-3: 1rem; // 16px
 $spacing-4: 1.5rem; // 24px
 $spacing-5: 3rem; // 48px
 
+// Line Heights
+$line-height-sm: 1;
+$line-height-md: 1.5;
+$line-height-lg: 2;
+
 // Borders
 $border-width: 1px;
 $border-color: #ccc;
-
+$border-bottom-color: #e0e0e0;
 // Shadows
 $box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 
@@ -77,14 +82,14 @@ $sidebar-text: rgba(255, 255, 255, 0.9);
 $viewport-w: 100vw;
 $viewport-h: 100vh;
 
-$viewport-editor-h: 70vh;
+$viewport-editor-h: 44vh;
 $viewport-editor-max-h: 86vh;
 
 $viewport-preview-min-h: 1vh;
-$viewport-preview-h: 10vh;
+$viewport-preview-h: 38vh;
 
 $viewport-console-min-h: 1vh;
-$viewport-console-h: 10vh;
+$viewport-console-h: 10h;
 
 // Logo
-$logo-w: 30rem;
+$logo-w: 25rem;

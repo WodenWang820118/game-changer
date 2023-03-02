@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EditorService } from '../../../services/editor.service';
 import { Observable, map, tap } from 'rxjs';
-
 @Component({
   standalone: true,
   imports: [CommonModule],

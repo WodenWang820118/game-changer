@@ -1,0 +1,9 @@
+$mat-tab-indicator-color: #ff3e00;
+
+.mdc-tab-indicator__content--underline {
+  --mdc-tab-indicator-active-indicator-color: #{$mat-tab-indicator-color};
+}
+
+.mat-mdc-tab-labels {
+  border-bottom: 1px solid $border-bottom-color;
+}

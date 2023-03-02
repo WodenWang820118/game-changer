@@ -1,34 +1,15 @@
+// abstracts
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
-
-@import 'vendors/bootstrap';
-
+// base
 @import 'base/reset';
 @import 'base/typography';
-
+// components
+@import 'components/chapter-select';
+@import 'components/mdc-tab';
+// layout
 @import 'layout/navigation';
-@import 'layout/grid';
-@import 'layout/header';
-@import 'layout/footer';
 @import 'layout/sidebar';
-@import 'layout/forms';
-
-@import 'components/buttons';
-@import 'components/carousel';
-@import 'components/cover';
-@import 'components/dropdown';
-@import 'components/nav';
-
-// tutorial for learning
-@import 'components/tutorial-text';
-
-// repl for coding
-@import 'components/editor';
-@import 'components/preview';
-@import 'components/console';
-
-@import 'pages/home';
-@import 'pages/contact';
-
-@import 'themes/theme';
-@import 'themes/admin';
+@import 'layout/chapter';
+@import 'layout/tutorial';
+@import 'layout/editor-layout';

@@ -17,9 +17,9 @@ export class ResizableDirective implements OnInit {
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
-    console.log('ResizableDirective');
     this.el.nativeElement.style['border-bottom'] =
       this.resizableGrabHeight + 'px solid';
+    this.el.nativeElement.style['border-top'] = 'none';
   }
 
   getNewHeight(height: number) {

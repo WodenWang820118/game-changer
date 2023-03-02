@@ -1,0 +1,37 @@
+.chapter {
+  p,
+  ol,
+  ul {
+    margin: 0 0 1em;
+  }
+
+  p {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-md;
+  }
+
+  h2 {
+    margin: 4rem 0 1.6rem;
+    font-size: $font-size-h2;
+    font-weight: $font-weight-normal;
+    color: $back;
+    line-height: $line-height-sm;
+  }
+
+  &__content {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__control {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 1em 0 0;
+  }
+
+  &__icon {
+    padding-top: 0.1em;
+    transform: scale(0.8);
+  }
+}

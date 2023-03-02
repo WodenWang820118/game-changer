@@ -10,16 +10,7 @@ import { EditorService } from '../../../services/editor.service';
 @Component({
   standalone: true,
   selector: 'game-editor',
-  styles: [
-    `
-      .cm-content {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        align-items: stretch;
-      }
-    `,
-  ],
+  styles: [``],
   template: `<div id="cm-editor" #editor>
     <div tabindex="-1" class="cm-scroller"></div>
   </div>`,

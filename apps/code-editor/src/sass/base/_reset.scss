@@ -1,6 +1,4 @@
 html {
-  font-size: 62.5%;
-  -webkit-text-size-adjust: 100%;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   box-sizing: border-box;
   border-collapse: collapse;
@@ -15,10 +13,6 @@ html {
 }
 
 body {
-  font-weight: $font-weight-normal;
-  font-size: $h4;
-  line-height: $line-height1;
-  font-family: $font-family-sans-serif;
   background-color: $back;
   color: $text;
   width: 100%;
@@ -45,4 +39,5 @@ blockquote {
   position: relative;
   margin: 0;
   color: $heading;
+  font-family: $font-family-sans-serif;
 }
