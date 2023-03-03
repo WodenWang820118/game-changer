@@ -9,7 +9,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "theEye",
+            "prefix": "game",
             "style": "camelCase"
           }
         ],
@@ -17,7 +17,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "the-eye",
+            "prefix": "game",
             "style": "kebab-case"
           }
         ]

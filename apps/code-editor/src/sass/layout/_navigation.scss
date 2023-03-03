@@ -1,0 +1,35 @@
+.navigation {
+  position: fixed;
+  width: $viewport-w;
+  height: $nav-height;
+  margin: 0 auto;
+  background-color: $back;
+  font-family: $font-family-sans-serif;
+  z-index: 100;
+  user-select: none;
+  transition: transform .2s;
+  border-bottom: $border-bottom-color 2px solid;
+
+  @include nav-screen($screen-tablet2);
+
+  &__nav {
+    margin-right: 4rem;
+  }
+
+  &__logo {
+    background-image: url('../../assets/icons8-artstation-48.svg');
+    width: $logo-w;
+    height: $nav-height;
+    display: flex;
+    align-items: center;
+    text-indent: -9999px;
+    background-position: calc($side-nav - 1rem) 50%;
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    position: relative;
+  }
+
+  &__list {
+    @include external-screen($screen-tablet2);
+  }
+}

@@ -1,0 +1,50 @@
+.editor-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: auto;
+
+  &__code-editor {
+    position: relative;
+    width: 100%;
+    height: $viewport-editor-h;
+    max-height: $viewport-editor-max-h;
+    background: $back;
+    flex: 0 0 auto;
+    overflow: auto;
+
+    &__viewport {
+      height: 100%;
+    }
+  }
+
+  &__code-preview {
+    position: relative;
+    width: 100%;
+    height: $viewport-preview-h;
+    min-height: $viewport-preview-min-h;
+    background: $back;
+    flex: 0 1 auto;
+    overflow: auto;
+    border: 1px solid;
+
+    &__viewport {
+      height: 100%;
+    }
+  }
+
+  &__code-console {
+    position: relative;
+    width: 100%;
+    height: $viewport-console-h;
+    min-height: $viewport-console-min-h;
+    background: $back;
+    flex: 1 1 0;
+    overflow: auto;
+    border: 1px solid;
+
+    &__viewport {
+      height: 100%;
+    }
+  }
+}

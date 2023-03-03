@@ -1,5 +1,5 @@
 {
-  "name": "the-eye",
+  "name": "game",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
@@ -22,6 +22,7 @@
     "@nrwl/angular": "15.5.1",
     "@types/codemirror": "^5.60.7",
     "codemirror": "^6.0.1",
+    "ngx-scrollbar": "^11.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

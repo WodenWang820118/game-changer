@@ -1,43 +1,61 @@
-<div class="container">
-  <div class="container__menu">
-    <the-eye-play-button (click)="onPlay()"></the-eye-play-button>
-  </div>
-  <div class="container__content">
-    <div class="container__content__files">
-      <div
-        class="container__content__files__html"
-        #html
-        id="html-editor"
-        tabindex="0"
-        (click)="selectEditor(html)">
-        <img
-          src="./assets/html5.svg"
-          id="html5-logo"
-          alt="html"
-          width="20"
-          height="20" />
-        index.html
-      </div>
-      <div
-        class="container__content__files__css"
-        #css
-        id="css-editor"
-        tabindex="1"
-        (click)="selectEditor(css)">
-        <img
-          src="./assets/css3-alt.svg"
-          id="html5-logo"
-          alt="html"
-          width="20"
-          height="20" />
-        style.css
-      </div>
-    </div>
-    <div class="container__content__editor">
-      <the-eye-editor></the-eye-editor>
-    </div>
-    <div class="container__content__renderer">
-      <the-eye-renderer></the-eye-renderer>
-    </div>
-  </div>
+<div class="navigation">
+  <a href="#" class="navigation__logo"></a>
+  <game-play-button></game-play-button>
+  <nav class="navigation__nav">
+    <ul class="navigation__list">
+      <li class="navigation__list__item"><a href="">Kit</a></li>
+      <li class="navigation__list__item"><a href="">Discord</a></li>
+      <li class="navigation__list__item"><a href="">GitHub</a></li>
+    </ul>
+  </nav>
 </div>
+
+<main>
+  <div class="tutorial">
+    <div class="tutorial__outer">
+      <div class="tutorial__outer__viewport">
+        <div class="sidebar">
+          <game-sidebar-nav class="sidebar__nav"></game-sidebar-nav>
+          <ng-scrollbar [viewClass]="'sidebar__markup'" class="scrollbar">
+            <game-chapter scrollViewport></game-chapter>
+          </ng-scrollbar>
+        </div>
+        <div class="editor-layout">
+          <div class="editor-layout__code-editor" gameDivResizable>
+            <div class="editor-layout__code-editor__viewport">
+              <mat-tab-group
+                mat-stretch-tabs="false"
+                mat-align-tabs="start"
+                animationDuration="0ms">
+                <mat-tab
+                  *ngFor="let editor of editors"
+                  label="{{ editor }}"
+                  id="{{ editor.split('.')[1] }}">
+                  <game-editor
+                    [editorExtension]="editor.split('.')[1]"></game-editor>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+          <div class="editor-layout__code-preview" gameDivResizable>
+            <div class="editor-layout__code-preview__viewport">
+              <mat-tab-group
+                mat-stretch-tabs="false"
+                mat-align-tabs="start"
+                animationDuration="0ms">
+                <mat-tab label="Result">
+                  <game-renderer></game-renderer>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+          <div class="editor-layout__code-console" gameDivResizable>
+            <div class="editor-layout__code-console__viewport">
+              <game-editor-console></game-editor-console>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

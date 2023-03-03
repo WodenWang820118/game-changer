@@ -2,22 +2,18 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
 @Component({
-  selector: 'the-eye-play-button',
+  selector: 'game-play-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  styles: [
-    `
-      .play-button {
-        display: flex;
-        justify-content: flex-end;
-      }
-    `,
-  ],
+  styleUrls: ['../../../styles.scss'],
   template: `
-    <button class="play-button" mat-raised-button color="primary">
-      <mat-icon>play_arrow</mat-icon>
+    <button class="play-button" mat-raised-button>
+      <mat-icon
+        class="play-button__icon"
+        style="transform: scale(2); padding:0; margin:0 ;"
+        >play_arrow</mat-icon
+      >
     </button>
   `,
 })

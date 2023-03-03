@@ -1,7 +1,11 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { EditorView } from 'codemirror';
-import { htmlEditorExtensions, cssEditorExtensions } from './editor-extensions';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  htmlLightEditorExtensions,
+  cssLightEditorExtensions,
+  jsLightEditorExtensions,
+} from './editor-extensions';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,14 +26,14 @@ export class EditorService {
   jsEditorBehaviorSubject: BehaviorSubject<EditorView> =
     new BehaviorSubject<EditorView>(new EditorView());
   jsEditor$ = this.jsEditorBehaviorSubject.asObservable();
-  jsSubject = new BehaviorSubject(`console.log('Hello World');`);
+  jsSubject = new BehaviorSubject(`console.log("hi")`);
   js$ = this.jsSubject.asObservable();
 
-  initHtmlEditorView(selector: string) {
+  initHtmlEditorView(elementRef: ElementRef) {
     // 1) Create an EditorView
     const editorView = new EditorView({
-      extensions: htmlEditorExtensions,
-      parent: document.querySelector(selector) as HTMLElement,
+      extensions: htmlLightEditorExtensions,
+      parent: elementRef.nativeElement,
     });
 
     // 2) Dispatch the initial value
@@ -49,10 +53,10 @@ export class EditorService {
     this.htmlSubject.next(html);
   }
 
-  initCssEditorView(selector: string) {
+  initCssEditorView(elementRef: ElementRef) {
     const editorView = new EditorView({
-      extensions: cssEditorExtensions,
-      parent: document.querySelector(selector) as HTMLElement,
+      extensions: cssLightEditorExtensions,
+      parent: elementRef.nativeElement,
     });
 
     editorView.dispatch({
@@ -70,39 +74,39 @@ export class EditorService {
     this.cssSubject.next(css);
   }
 
-  initJsEditorView(selector: string) {
-    const editor = new EditorView({
-      extensions: cssEditorExtensions,
-      parent: document.querySelector(selector) as HTMLElement,
+  initJsEditorView(elementRef: ElementRef) {
+    const editorView = new EditorView({
+      extensions: jsLightEditorExtensions,
+      parent: elementRef.nativeElement,
     });
 
-    this.jsEditorBehaviorSubject.next(editor);
+    editorView.dispatch({
+      changes: {
+        from: 0,
+        insert: this.jsSubject.getValue(),
+        to: editorView.state.doc.length,
+      },
+    });
+
+    this.jsEditorBehaviorSubject.next(editorView);
   }
 
-  selectEditor(editorId: string) {
-    const htmlEditor = document.querySelector('#cm-html-editor') as HTMLElement;
-    const cssEditor = document.querySelector('#cm-css-editor') as HTMLElement;
-    const jsEditor = document.querySelector('#cm-js-editor') as HTMLElement;
-    switch (editorId) {
-      case 'html-editor':
-        htmlEditor.style.display = 'block';
-        cssEditor.style.display = 'none';
-        jsEditor.style.display = 'none';
+  setJs(js: string) {
+    this.jsSubject.next(js);
+  }
+
+  initEditorView(extension: string, elementRef: ElementRef) {
+    switch (extension) {
+      case 'html':
+        this.initHtmlEditorView(elementRef);
         break;
-      case 'css-editor':
-        htmlEditor.style.display = 'none';
-        cssEditor.style.display = 'block';
-        jsEditor.style.display = 'none';
+      case 'css':
+        this.initCssEditorView(elementRef);
         break;
-      case 'js-editor':
-        htmlEditor.style.display = 'none';
-        cssEditor.style.display = 'none';
-        jsEditor.style.display = 'block';
+      case 'js':
+        this.initJsEditorView(elementRef);
         break;
       default:
-        htmlEditor.style.display = 'block';
-        cssEditor.style.display = 'none';
-        jsEditor.style.display = 'none';
         break;
     }
   }

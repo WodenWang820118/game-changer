@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'the-eye-root',
+  selector: 'game-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
