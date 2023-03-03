@@ -1,7 +1,6 @@
 import { MatIconModule } from '@angular/material/icon';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'game-chapter',
   standalone: true,

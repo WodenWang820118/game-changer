@@ -1,0 +1,6 @@
+.scrollbar {
+  --scrollbar-border-radius: #{$scrollbar-border-radius} !important;
+  --scrollbar-thumb-color: #{$scrollbar-thumb-color} !important;
+  --scrollbar-size: #{$scrollbar-w} !important;
+  --scrollbar-padding: 0px !important;
+}

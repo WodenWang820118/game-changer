@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 // standard/standalone components
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { EditorService } from '../services/editor.service';
     EditorConsoleComponent,
     SidebarNavComponent,
     ChapterComponent,
+    NgScrollbarModule,
   ],
   providers: [EditorService],
   bootstrap: [AppComponent],

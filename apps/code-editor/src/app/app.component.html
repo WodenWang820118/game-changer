@@ -16,7 +16,9 @@
       <div class="tutorial__outer__viewport">
         <div class="sidebar">
           <game-sidebar-nav class="sidebar__nav"></game-sidebar-nav>
-          <game-chapter class="sidebar__markup"></game-chapter>
+          <ng-scrollbar [viewClass]="'sidebar__markup'" class="scrollbar">
+            <game-chapter scrollViewport></game-chapter>
+          </ng-scrollbar>
         </div>
         <div class="editor-layout">
           <div class="editor-layout__code-editor" gameDivResizable>

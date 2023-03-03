@@ -1,7 +1,5 @@
-$mat-tab-indicator-color: #ff3e00;
-
 .mdc-tab-indicator__content--underline {
-  --mdc-tab-indicator-active-indicator-color: #{$mat-tab-indicator-color};
+  --mdc-tab-indicator-active-indicator-color: #{$mat-tab-indicator-color} !important;
 }
 
 .mat-mdc-tab-labels {
