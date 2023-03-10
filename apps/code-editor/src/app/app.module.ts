@@ -18,13 +18,14 @@ import { SidebarNavComponent } from './components/sidebar/sidebar.component';
 import { ChapterComponent } from './components/chapter/chapter.component';
 
 // directives
-import { ResizableDirective } from './resizable.directive';
+import { ResizableDirective } from './directives/resizable.directive';
+import { ConsoleInteractDirective } from './directives/console-interact.directive';
 
 // services
 import { EditorService } from './services/editor.service';
 
 @NgModule({
-  declarations: [AppComponent, ResizableDirective],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     EditorComponent,
@@ -38,6 +39,8 @@ import { EditorService } from './services/editor.service';
     NgScrollbarModule,
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
+    ResizableDirective,
+    ConsoleInteractDirective,
   ],
   providers: [EditorService],
   bootstrap: [AppComponent],

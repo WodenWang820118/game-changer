@@ -1,0 +1,17 @@
+.console-inner {
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+
+  &__btn-group {
+    display: flex;
+    justify-content: space-between;
+
+    &__clean {
+      cursor: pointer;
+    }
+  }
+
+  &__output {
+    padding: 0 1.5rem;
+  }
+}
