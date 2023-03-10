@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { HttpClientModule } from '@angular/common/http';
+import { MarkdownModule } from 'ngx-markdown';
+import { HttpClient } from '@angular/common/http';
 
 // standard/standalone components
 import { AppComponent } from './app.component';
@@ -18,7 +21,7 @@ import { ChapterComponent } from './components/chapter/chapter.component';
 import { ResizableDirective } from './resizable.directive';
 
 // services
-import { EditorService } from '../services/editor.service';
+import { EditorService } from './services/editor.service';
 
 @NgModule({
   declarations: [AppComponent, ResizableDirective],
@@ -33,6 +36,8 @@ import { EditorService } from '../services/editor.service';
     SidebarNavComponent,
     ChapterComponent,
     NgScrollbarModule,
+    HttpClientModule,
+    MarkdownModule.forRoot({ loader: HttpClient }),
   ],
   providers: [EditorService],
   bootstrap: [AppComponent],

@@ -5,7 +5,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { EditorService } from '../../../services/editor.service';
+import { EditorService } from '../../services/editor.service';
 
 @Component({
   standalone: true,
