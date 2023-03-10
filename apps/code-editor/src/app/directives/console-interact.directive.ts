@@ -7,7 +7,15 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class ConsoleInteractDirective {
   constructor(private el: ElementRef) {}
 
-  @HostListener('click') onClick() {
+  @HostListener('click', ['$event']) onClick(event: MouseEvent) {
+    const ignoreTarget = '#clean-console';
+    const ignoreTargetElement =
+      this.el.nativeElement.querySelector(ignoreTarget);
+
+    if (event.target === ignoreTargetElement) {
+      event.stopPropagation();
+      return;
+    }
     this.el.nativeElement.classList.toggle('collapsed');
   }
 }

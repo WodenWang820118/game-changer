@@ -16,14 +16,21 @@ import { DomSanitizer } from '@angular/platform-browser';
   imports: [CommonModule],
   standalone: true,
   template: `
-    <div id="editor-console" style="padding: 1rem 1.5rem;">
-      <div style="cursor: pointer">
-        <strong>Console</strong>
+    <div class="console-inner">
+      <div class="console-inner__btn-group">
+        <p><strong>Console</strong></p>
+        <p
+          id="clean-console"
+          class="console-inner__btn-group__clean"
+          (click)="clearConsole($event)">
+          CLEAR
+        </p>
       </div>
       <div
         id="output"
-        style="padding: 0 1.5rem"
-        [innerHTML]="output$ | async"></div>
+        class="console-inner__output"
+        [innerHTML]="output$ | async"
+        #outputElement></div>
     </div>
   `,
   styleUrls: ['../../../styles.scss'],
@@ -75,5 +82,10 @@ export class EditorConsoleComponent implements AfterViewInit, OnInit {
         return html;
       })
     );
+  }
+
+  clearConsole(event: MouseEvent): void {
+    event.preventDefault();
+    this.outputElement.nativeElement.innerHTML = '';
   }
 }
