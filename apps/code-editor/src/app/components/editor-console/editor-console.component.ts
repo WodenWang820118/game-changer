@@ -16,8 +16,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   imports: [CommonModule],
   standalone: true,
   template: `
-    <div id="editor-console">
-      <div id="output" [innerHTML]="output$ | async"></div>
+    <div id="editor-console" style="padding: 1rem 1.5rem;">
+      <div style="cursor: pointer">
+        <strong>Console</strong>
+      </div>
+      <div
+        id="output"
+        style="padding: 0 1.5rem"
+        [innerHTML]="output$ | async"></div>
     </div>
   `,
   styleUrls: ['../../../styles.scss'],

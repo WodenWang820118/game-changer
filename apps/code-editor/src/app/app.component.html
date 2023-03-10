@@ -1,6 +1,6 @@
 <div class="navigation">
   <a href="#" class="navigation__logo"></a>
-  <game-play-button></game-play-button>
+  <game-play-button (click)="onPlay()"></game-play-button>
   <nav class="navigation__nav">
     <ul class="navigation__list">
       <li class="navigation__list__item"><a href="">Kit</a></li>
@@ -44,7 +44,10 @@
               </mat-tab-group>
             </div>
           </div>
-          <div class="editor-layout__code-console" gameDivResizable>
+          <div
+            class="editor-layout__code-console collapsed"
+            gameDivResizable
+            gameConsoleInteract>
             <div class="editor-layout__code-console__viewport">
               <game-editor-console></game-editor-console>
             </div>
