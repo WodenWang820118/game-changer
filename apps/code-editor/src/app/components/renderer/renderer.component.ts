@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { OnInit, SecurityContext } from '@angular/core';
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { EditorService } from '../../../services/editor.service';
+import { EditorService } from '../../services/editor.service';
 import { Observable, map, tap } from 'rxjs';
 @Component({
   standalone: true,
