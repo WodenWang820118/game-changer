@@ -1,4 +1,3 @@
-import { ChaptersService } from '../../services/chapters.service';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +8,6 @@ import { Chapter } from '../../interfaces/chapter.interface';
   selector: 'game-chapter',
   standalone: true,
   imports: [CommonModule, MatIconModule, MarkdownModule],
-  providers: [ChaptersService],
   template: `
     <div class="chapter">
       <markdown
