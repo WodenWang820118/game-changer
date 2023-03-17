@@ -1,12 +1,12 @@
-import { Observable, map, switchMap, take } from 'rxjs';
+import { Observable, map, first, withLatestFrom } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChaptersService } from '../../services/chapters.service';
 import { Chapter } from '../../interfaces/chapter.interface';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ChapterComponent } from '../chapter/chapter.component';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { ChapterEntityService } from '../../services/chapter-entity.service';
 
 @Component({
   selector: 'game-sidebar',
@@ -18,6 +18,7 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
     ChapterComponent,
     MatSelectModule,
   ],
+  providers: [ChapterEntityService],
   template: `
     <div class="sidebar">
       <div class="sidebar__nav">
@@ -52,15 +53,15 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 export class SidebarNavComponent implements OnInit {
   @ViewChild('select') select!: MatSelect;
   chapters$: Observable<Chapter[]> = new Observable();
-  chapter$: Observable<Chapter> = this.chapterService.chapter$;
+  chapter$: Observable<Chapter> = new Observable();
 
-  constructor(public chapterService: ChaptersService) {}
+  constructor(private chapterEntityService: ChapterEntityService) {}
 
   ngOnInit(): void {
+    this.chapters$ = this.chapterEntityService.entities$.pipe(
+      map(chapters => chapters)
+    );
     this.reloadIntroduction();
-    this.chapters$ = this.chapterService
-      .getChapters()
-      .pipe(map(chapters => chapters));
   }
 
   onClickChapter(): void {
@@ -69,26 +70,42 @@ export class SidebarNavComponent implements OnInit {
 
   previousChapter(): void {
     this.chapter$ = this.chapter$.pipe(
-      take(1),
-      switchMap(chapter => this.chapterService.getPreviousChapter(chapter.id))
+      withLatestFrom(this.chapterEntityService.entities$),
+      first(),
+      map(([currentChapter, chapters]) => {
+        const index = chapters.findIndex(
+          chapter => chapter.id === currentChapter.id
+        );
+        return index >= 0 ? chapters[index - 1] : chapters[0];
+      })
     );
   }
 
   nextChapter(): void {
     this.chapter$ = this.chapter$.pipe(
-      take(1),
-      switchMap(chapter => this.chapterService.getNextChapter(chapter.id))
+      withLatestFrom(this.chapterEntityService.entities$),
+      first(),
+      map(([currentChapter, chapters]) => {
+        const index = chapters.findIndex(
+          chapter => chapter.id === currentChapter.id
+        );
+        return index < chapters.length - 1 ? chapters[index + 1] : chapters[0];
+      })
     );
   }
 
   reloadIntroduction() {
-    this.chapter$ = this.chapter$.pipe(
-      take(1),
-      switchMap(() => this.chapterService.findChapterById(1))
+    this.chapter$ = this.chapterEntityService.entities$.pipe(
+      map(chapters => chapters.find(chapter => chapter.id === 1) || chapters[0])
     );
   }
 
   onSelectChapter(chapterId: number) {
-    this.chapter$ = this.chapterService.findChapterById(chapterId);
+    this.chapter$ = this.chapterEntityService.entities$.pipe(
+      map(
+        chapters =>
+          chapters.find(chapter => chapter.id === chapterId) || chapters[0]
+      )
+    );
   }
 }
