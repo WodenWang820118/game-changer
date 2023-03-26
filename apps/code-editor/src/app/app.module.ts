@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 // standard/standalone components
 import { AppComponent } from './app.component';
@@ -17,6 +18,8 @@ import { PlayButtonComponent } from './components/play-button/play-button.compon
 import { EditorConsoleComponent } from './components/editor-console/editor-console.component';
 import { SidebarNavComponent } from './components/sidebar/sidebar.component';
 import { ChapterComponent } from './components/chapter/chapter.component';
+// import { HamburgerMenuComponent } from './components/hamburger-menu/hamburger-menu.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 // directives
 import { ResizableDirective } from './directives/resizable.directive';
@@ -69,8 +72,10 @@ const chapterRoutes: Routes = [
     EditorConsoleComponent,
     SidebarNavComponent,
     ChapterComponent,
+    MenuComponent,
     NgScrollbarModule,
     HttpClientModule,
+    MatIconModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     ResizableDirective,
     ConsoleInteractDirective,
