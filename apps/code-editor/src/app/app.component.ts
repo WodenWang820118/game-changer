@@ -10,8 +10,6 @@ import { combineLatest, tap } from 'rxjs';
 })
 export class AppComponent {
   title = 'code-editor';
-  editors = ['index.html', 'style.css', 'index.js'];
-  renderers = ['Result'];
 
   constructor(private editorService: EditorService) {}
 

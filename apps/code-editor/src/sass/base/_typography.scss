@@ -4,8 +4,5 @@ html {
 }
 
 body {
-  font-weight: $font-weight-normal;
-  font-size: $font-size-lg;
-  line-height: $line-height1;
-  font-family: $font-family-sans-serif;
+  font: $font-weight-normal calc($font-size-h3 / $line-height-md) $font-family-sans-serif;
 }

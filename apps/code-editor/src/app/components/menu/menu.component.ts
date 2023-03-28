@@ -28,7 +28,6 @@ export class MenuComponent implements OnInit {
 
   @HostListener('window:resize')
   onChangingMenuType() {
-    // console.warn('window.screen.width: ', window.screen.width);
     if (window.innerWidth <= 800) {
       this.showHamburgerMenu = true;
     } else {

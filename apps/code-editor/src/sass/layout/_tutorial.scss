@@ -13,7 +13,21 @@
     box-sizing: border-box;
 
     &__viewport {
-      @include viewport-screen($screen-tablet1);
+      width: 300%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(33.333%, $sidebar-large-w) auto;
+      grid-auto-rows: 100%;
+      transition: transform .3s;
+
+      @media (min-width: $screen-tablet1) {
+        display: grid;
+        grid-template-columns: minmax(33.333%, $sidebar-large-w) auto;
+        grid-auto-rows: 100%;
+        transition: transform .3s;
+        transition: none;
+        width: 100%;
+      }
     }
   }
 }

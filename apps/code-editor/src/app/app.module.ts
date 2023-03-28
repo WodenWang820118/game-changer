@@ -18,8 +18,10 @@ import { PlayButtonComponent } from './components/play-button/play-button.compon
 import { EditorConsoleComponent } from './components/editor-console/editor-console.component';
 import { SidebarNavComponent } from './components/sidebar/sidebar.component';
 import { ChapterComponent } from './components/chapter/chapter.component';
-// import { HamburgerMenuComponent } from './components/hamburger-menu/hamburger-menu.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { TabletViewportSwitchesComponent } from './components/tablet-switches/tablet-viewport-switches.component';
+import { EditorViewportComponent } from './components/editor/editor-viewport/editor-viewport.component';
+import { RendererViewportComponent } from './components/renderer/renderer-viewport/renderer-viewport.component';
 
 // directives
 import { ResizableDirective } from './directives/resizable.directive';
@@ -73,6 +75,9 @@ const chapterRoutes: Routes = [
     SidebarNavComponent,
     ChapterComponent,
     MenuComponent,
+    TabletViewportSwitchesComponent,
+    EditorViewportComponent,
+    RendererViewportComponent,
     NgScrollbarModule,
     HttpClientModule,
     MatIconModule,
