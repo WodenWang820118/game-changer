@@ -1,56 +1,117 @@
 .editor-layout {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  overflow: auto;
+  flex-wrap: wrap;
+
+  &__code-editor,
+  &__code-preview,
+  &__code-console {
+    position: relative;
+    width: 50%;
+    background: $back;
+    overflow: auto;
+  }
+
+  &__code-editor__viewport,
+  &__code-preview__viewport,
+  &__code-console__viewport {
+    height: 100%;
+  }
+
+  @media (min-width: $screen-tablet2) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
 
   &__code-editor {
-    position: relative;
-    width: 100%;
-    height: $viewport-editor-h;
-    max-height: $viewport-editor-max-h;
-    background: $back;
-    flex: 0 0 auto;
-    overflow: auto;
+    height: 100%;
 
-    &__viewport {
-      height: 100%;
+    @media (min-width: $screen-tablet2) {
+      width: 100%;
+      height: $viewport-editor-h;
+      max-height: $viewport-editor-max-h;
+      background: $back;
+      flex: 0 0 auto;
     }
   }
 
   &__code-preview {
-    position: relative;
-    width: 100%;
-    height: $viewport-preview-h;
-    min-height: $viewport-preview-min-h;
-    background: $back;
-    flex: 0 1 auto;
-    overflow: auto;
-    border: 1px solid;
+    height: 90%;
+    flex: 1 1 auto;
+    transition: height 0.5s;
 
-    &__viewport {
-      height: 100%;
+    .collapsed {
+      height: 80%;
+      transition: height 0.5s;
+
+      @media (min-width: $screen-tablet2) {
+        height: auto;
+        transition: none;
+      }
+    }
+
+    @media (min-width: $screen-tablet2) {
+      width: 100%;
+      flex: 0 1 auto;
+      height: $viewport-preview-h;
+      min-height: $viewport-preview-min-h;
+      border: 1px solid;
+      transition: none;
     }
   }
 
   &__code-console {
-    position: relative;
-    width: 100%;
-    height: $viewport-console-h;
-    min-height: $viewport-console-min-h;
-    background: $back;
+    height: 20%;
     flex: 1 1 0;
-    overflow: auto;
-    border: 1px solid;
-    transition: min-height 0.5s;
 
-    &__viewport {
-      height: 100%;
+    @media (min-width: $screen-tablet2) {
+      width: 100%;
+      flex: 1 1 0;
+      background: $back;
+      height: $viewport-console-h;
+      min-height: $viewport-console-min-h;
+      border: 1px solid;
+    }
+  }
+
+  &__switches {
+    position: fixed;
+    width: 100%;
+    height: 4.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid $secondary;
+    background-color: $back;
+
+    @media (min-width: $screen-tablet2) {
+      display: none;
+    }
+
+    &__item {
+      margin: 0 0.15em;
+      width: 4em;
+      height: 1em;
+      padding: 0.3em 0.4em;
+      border-radius: $border-radius;
+      border: 1px solid $back-light;
+      background-color: transparent;
+      box-sizing: content-box;
+      line-height: 1em;
+      font-family: inherit;
+      font-size: $font-size-xl;
+      color: $text-light;
     }
   }
 }
 
 .collapsed {
-  min-height: 1vh;
-  transition: min-height 0.5s;
+  height: 10%;
+  transition: height 0.5s;
+
+  @media (min-width: $screen-tablet2) {
+    min-height: 5%;
+    transition: none;
+  }
 }

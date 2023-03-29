@@ -1,59 +1,36 @@
 <div class="navigation">
   <a href="#" class="navigation__logo"></a>
   <game-play-button (click)="onPlay()"></game-play-button>
-  <nav class="navigation__nav">
-    <ul class="navigation__list">
-      <li class="navigation__list__item"><a href="">Kit</a></li>
-      <li class="navigation__list__item"><a href="">Discord</a></li>
-      <li class="navigation__list__item"><a href="">GitHub</a></li>
-    </ul>
-  </nav>
+  <game-menu></game-menu>
 </div>
 
 <main>
   <div class="tutorial">
     <div class="tutorial__outer">
-      <div class="tutorial__outer__viewport">
+      <div class="tutorial__outer__viewport" #viewport>
         <game-sidebar />
         <div class="editor-layout">
           <div class="editor-layout__code-editor" gameDivResizable>
-            <div class="editor-layout__code-editor__viewport">
-              <mat-tab-group
-                mat-stretch-tabs="false"
-                mat-align-tabs="start"
-                animationDuration="0ms">
-                <mat-tab
-                  *ngFor="let editor of editors"
-                  label="{{ editor }}"
-                  id="{{ editor.split('.')[1] }}">
-                  <game-editor
-                    [editorExtension]="editor.split('.')[1]"></game-editor>
-                </mat-tab>
-              </mat-tab-group>
-            </div>
+            <game-editor-viewport
+              class="editor-layout__code-editor__viewport" />
           </div>
           <div class="editor-layout__code-preview" gameDivResizable>
-            <div class="editor-layout__code-preview__viewport">
-              <mat-tab-group
-                mat-stretch-tabs="false"
-                mat-align-tabs="start"
-                animationDuration="0ms">
-                <mat-tab label="Result">
-                  <game-renderer></game-renderer>
-                </mat-tab>
-              </mat-tab-group>
-            </div>
+            <game-renderer-viewport
+              class="editor-layout__code-preview__viewport" />
           </div>
           <div
             class="editor-layout__code-console collapsed"
             gameDivResizable
             gameConsoleInteract>
             <div class="editor-layout__code-console__viewport">
-              <game-editor-console></game-editor-console>
+              <game-editor-console />
             </div>
           </div>
         </div>
       </div>
+      <game-tablet-viewport-switches
+        class="editor-layout__switches"
+        [viewport]="viewport" />
     </div>
   </div>
 </main>

@@ -10,15 +10,34 @@
   transition: transform .2s;
   border-bottom: $border-bottom-color 2px solid;
 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
   @include nav-screen($screen-tablet2);
 
   &__nav {
+    cursor: pointer;
     margin-right: 4rem;
+
+    @media (min-width: $screen-tablet2) {
+      margin-right: 4rem;    
+    }
+  }
+
+  &__col__nav {
+    margin-right: 3rem;
+    cursor: pointer;
+
+    @media (min-width: $screen-tablet2) {
+      display: none;
+    }
   }
 
   &__logo {
     background-image: url('../../assets/icons8-artstation-48.svg');
-    width: $logo-w;
+    width: calc($logo-w * 0.4);
     height: $nav-height;
     display: flex;
     align-items: center;
@@ -27,6 +46,12 @@
     background-repeat: no-repeat;
     background-size: auto 70%;
     position: relative;
+
+    @media (min-width: $screen-tablet2) {
+      width: $logo-w;
+      padding: 0 $side-nav 0 0;
+      justify-content: end;
+    }
   }
 
   &__list {

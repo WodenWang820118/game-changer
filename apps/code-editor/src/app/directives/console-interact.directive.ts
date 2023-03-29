@@ -16,6 +16,11 @@ export class ConsoleInteractDirective {
       event.stopPropagation();
       return;
     }
-    this.el.nativeElement.classList.toggle('collapsed');
+
+    if (window.innerWidth < 800) {
+      const element = document.querySelector('.editor-layout__code-preview');
+      element?.classList.toggle('collapsed');
+      this.el.nativeElement.classList.toggle('collapsed');
+    }
   }
 }

@@ -9,9 +9,11 @@ $light: #f8f9fa;
 $dark: #343a40;
 $back: #ffffff;
 $text: #444;
+$text-light: #888;
 $heading: #222;
 $scrollbar-thumb-color: #d2d2d7;
 $mat-tab-indicator-color: #ff3e00;
+$back-light: #f6fafd;
 
 // Screen Sizes
 $screen-tablet1: 768px;
@@ -22,6 +24,7 @@ $font-size-sm: 0.875rem; // 14px
 $font-size-md: 1rem; // 16px
 $font-size-lg: 1.5rem; // 24px
 $font-size-xl: 1.8rem; // 28px
+$font-size-h3: 2.2rem; // 36px
 $font-size-h2: 2.6rem; // 42px
 $font-size-h1: 3.6rem; // 56px
 
@@ -62,6 +65,7 @@ $line-height-lg: 2;
 $border-width: 1px;
 $border-color: #ccc;
 $border-bottom-color: #e0e0e0;
+$border-radius: 0.3rem;
 // Shadows
 $box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 
@@ -88,7 +92,7 @@ $viewport-w: 100vw;
 $viewport-h: 100vh;
 
 $viewport-editor-h: 44vh;
-$viewport-editor-max-h: 86vh;
+$viewport-editor-max-h: 76vh;
 
 $viewport-preview-min-h: 1vh;
 $viewport-preview-h: 38vh;

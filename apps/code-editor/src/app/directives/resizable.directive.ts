@@ -66,7 +66,10 @@ export class ResizableDirective implements OnInit {
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
     if (this.inDragRegion(event) || this.isResizing) {
-      this.el.nativeElement.style.cursor = 'row-resize';
+      // doesn't allow resizing in tablet mode
+      // may refactor to be resizable in tablet mode
+      if (window.innerWidth > 800)
+        this.el.nativeElement.style.cursor = 'row-resize';
     } else {
       this.el.nativeElement.style.cursor = 'default';
     }
