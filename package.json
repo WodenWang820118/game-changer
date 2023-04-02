@@ -2,7 +2,9 @@
   "name": "game",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build-editor": "nx build code-editor"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "15.2.5",
