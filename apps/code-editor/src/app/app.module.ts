@@ -52,6 +52,9 @@ import {
 // others
 import { environment } from '../environments/environment';
 
+// feature modules
+import { DataAccessCodeEditorModule } from '@game/data-access/code-editor';
+
 const chapterRoutes: Routes = [
   {
     path: '',
@@ -101,6 +104,7 @@ const chapterRoutes: Routes = [
     EffectsModule.forRoot([]),
     EntityDataModule.forRoot(entityConfig),
     RouterModule.forRoot(chapterRoutes),
+    DataAccessCodeEditorModule,
   ],
   providers: [
     EditorService,
@@ -111,6 +115,7 @@ const chapterRoutes: Routes = [
     ChaptersDataService,
     ChapterResolver,
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
+    { provide: 'FIREBASE_CONFIG', useValue: environment.firebaseConfig },
   ],
   bootstrap: [AppComponent],
 })
