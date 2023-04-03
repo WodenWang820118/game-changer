@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@game/data-access/code-editor": [
+        "libs/data-access/code-editor/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -5,4 +5,7 @@
 
 export const environment = {
   production: false,
+  backendService: 'json-server',
+  jsonServerUrl: 'http://localhost:3000',
+  firebaseConfig: null,
 };
