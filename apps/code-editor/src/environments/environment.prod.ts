@@ -3,7 +3,7 @@ export const environment = {
   backendService: 'firebase',
   jsonServerUrl: null,
   firebaseConfig: {
-    apiKey: process.env['FIREBASE_API_KEY'],
+    apiKey: 'AIzaSyA7wQTRweXcwDWtFL1ODqngViW3EhK3vKQ',
     authDomain: 'game-changer-81bff.firebaseapp.com',
     projectId: 'game-changer-81bff',
     storageBucket: 'game-changer-81bff.appspot.com',
