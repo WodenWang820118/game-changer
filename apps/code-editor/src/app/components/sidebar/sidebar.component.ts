@@ -25,6 +25,7 @@ import { ChapterEntityService } from '../../services/chapter-entity.service';
         <a><mat-icon (click)="previousChapter()">arrow_back</mat-icon></a>
         <div class="sidebar__nav__select" (click)="onClickChapter()">
           <div><mat-icon>menu</mat-icon></div>
+          <!-- TODO: reflect the selected title -->
           <div><strong>Introduction</strong>&nbsp;/&nbsp;Basics</div>
           <mat-form-field appearance="fill" class="sidebar__chapter-select">
             <mat-label>Chapter</mat-label>
@@ -44,6 +45,7 @@ import { ChapterEntityService } from '../../services/chapter-entity.service';
       <ng-scrollbar [viewClass]="'sidebar__markup'" class="scrollbar">
         <game-chapter
           scrollViewport
+          (nextChapter)="nextChapter()"
           [chapter]="chapter$ | async"></game-chapter>
       </ng-scrollbar>
     </div>
