@@ -6,6 +6,8 @@ import {
   getDocs,
   doc,
   updateDoc,
+  setDoc,
+  deleteDoc,
 } from 'firebase/firestore/lite';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, from, map, of, tap } from 'rxjs';
@@ -17,6 +19,7 @@ export class FirebaseService {
   private app;
   private db;
   private analytics;
+  private CHAPTERS_COLLECTION = 'chapters';
 
   constructor(@Inject('FIREBASE_CONFIG') private firebaseConfig: any) {
     try {
@@ -31,7 +34,7 @@ export class FirebaseService {
   getAllChapters(): Observable<Chapter[]> {
     if (!this.db) return of([]);
 
-    const chaptersCol = collection(this.db, 'chapters');
+    const chaptersCol = collection(this.db, this.CHAPTERS_COLLECTION);
     return from(getDocs(chaptersCol)).pipe(
       map(chaptersSnapshot => {
         // return chaptersSnapshot.docs.map(doc => doc.data()) as Chapter[]
@@ -56,7 +59,7 @@ export class FirebaseService {
         content: ['Failed to update the chapter in the Firebase'],
       });
     // the document id is the same as the chapter id
-    const chapterDoc = doc(this.db, 'chapters', String(id));
+    const chapterDoc = doc(this.db, this.CHAPTERS_COLLECTION, String(id));
     console.warn('chapter', chapter);
     console.warn('chapterDoc', chapterDoc);
     return from(updateDoc(chapterDoc, chapter)).pipe(
@@ -65,6 +68,26 @@ export class FirebaseService {
   }
 
   addChapter(chapter: Chapter): Observable<Chapter> {
-    return of(chapter);
+    if (!this.db)
+      return of({
+        id: 0,
+        title: 'Backend Error',
+        content: ['Failed to add the chapter in the Firebase'],
+      });
+
+    return from(
+      setDoc(
+        doc(this.db, this.CHAPTERS_COLLECTION, String(chapter.id)),
+        chapter
+      )
+    ).pipe(map(() => chapter));
+  }
+
+  deleteChapter(id: number | string): Observable<string | number> {
+    if (!this.db) return of(0);
+
+    return of(
+      deleteDoc(doc(this.db, this.CHAPTERS_COLLECTION, String(id)))
+    ).pipe(map(() => id));
   }
 }

@@ -1,4 +1,4 @@
-import { Observable, map, first, withLatestFrom } from 'rxjs';
+import { Observable, map, first, withLatestFrom, tap, of } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -47,6 +47,7 @@ import { ChapterEntityService } from '../../services/chapter-entity.service';
         <game-chapter
           scrollViewport
           (nextChapter)="nextChapter()"
+          (deleteChapter)="deleteChapter($event)"
           [chapter]="chapter$ | async"></game-chapter>
       </ng-scrollbar>
     </div>
@@ -110,5 +111,23 @@ export class SidebarNavComponent implements OnInit {
           chapters.find(chapter => chapter.id === chapterId) || chapters[0]
       )
     );
+  }
+
+  deleteChapter(chapterId: number) {
+    this.chapterEntityService
+      .delete(chapterId)
+      .pipe(
+        withLatestFrom(this.chapterEntityService.entities$),
+        first(),
+        tap(([_, chapters]) => {
+          console.warn(chapters);
+          this.chapter$ = of(
+            chapters.find(chapter => chapter.id === chapterId - 1) ||
+              chapters[0]
+          );
+        })
+      )
+      .subscribe()
+      .unsubscribe();
   }
 }

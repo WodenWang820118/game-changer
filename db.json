@@ -58,6 +58,14 @@
         "- CSS",
         "- JavaScript"
       ]
+    },
+    {
+      "id": 4,
+      "title": "New Chapter",
+      "order": 3,
+      "content": [
+        "Please add your content"
+      ]
     }
   ]
 }

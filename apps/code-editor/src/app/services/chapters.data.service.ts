@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Chapter } from '@game/data-access/code-editor-data';
 import { Injectable } from '@angular/core';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Update } from '@ngrx/entity';
 import { FirebaseService } from '@game/data-access/code-editor-data';
@@ -86,5 +86,15 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
       title: 'Backend Error',
       content: ['Failed to add the chapter in the backend service'],
     });
+  }
+
+  override delete(key: string | number): Observable<string | number> {
+    if (environment.backendService === 'json-server') {
+      return this.http.delete(`${this.localUrl}/${key}`).pipe(map(() => key));
+    }
+    if (environment.backendService === 'firebase') {
+      return this.firebaseService.deleteChapter(key);
+    }
+    return of(0);
   }
 }
