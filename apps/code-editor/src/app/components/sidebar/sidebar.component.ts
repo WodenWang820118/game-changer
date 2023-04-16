@@ -80,7 +80,7 @@ export class SidebarNavComponent implements OnInit {
         const index = chapters.findIndex(
           chapter => chapter.id === currentChapter.id
         );
-        return index >= 0 ? chapters[index - 1] : chapters[0];
+        return index > 0 ? chapters[index - 1] : chapters[0];
       })
     );
   }
