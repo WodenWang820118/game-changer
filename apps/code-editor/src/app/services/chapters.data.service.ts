@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Chapter } from '../interfaces/chapter.interface';
+import { Chapter } from '@game/data-access/code-editor-data';
 import { Injectable } from '@angular/core';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
 import { Observable, catchError, of } from 'rxjs';
-import { FirebaseService } from '@game/data-access/code-editor';
 import { environment } from '../../environments/environment';
+import { Update } from '@ngrx/entity';
+import { FirebaseService } from '@game/data-access/code-editor-data';
 
 @Injectable()
 export class ChaptersDataService extends DefaultDataService<Chapter> {
@@ -54,5 +55,36 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
     };
 
     return of([errorChapter]);
+  }
+
+  override update(update: Update<Chapter>): Observable<Chapter> {
+    if (environment.backendService === 'json-server') {
+      return this.http.put<Chapter>(
+        `${this.localUrl}/${update.id}`,
+        update.changes
+      );
+    }
+    if (environment.backendService === 'firebase') {
+      return this.firebaseService.updateChapter(update.id, update.changes);
+    }
+    return of({
+      id: 0,
+      title: 'Backend Error',
+      content: ['Failed to update the chapter in the backend service'],
+    });
+  }
+
+  override add(chapter: Chapter): Observable<Chapter> {
+    if (environment.backendService === 'json-server') {
+      return this.http.post<Chapter>(this.localUrl, chapter);
+    }
+    if (environment.backendService === 'firebase') {
+      return this.firebaseService.addChapter(chapter);
+    }
+    return of({
+      id: 0,
+      title: 'Backend Error',
+      content: ['Failed to add the chapter in the backend service'],
+    });
   }
 }

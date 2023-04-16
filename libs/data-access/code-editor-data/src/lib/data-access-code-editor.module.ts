@@ -6,4 +6,4 @@ import { FirebaseService } from './firebase.service';
   imports: [CommonModule],
   providers: [FirebaseService],
 })
-export class DataAccessCodeEditorModule {}
+export class DataAccessCodeEditorDataModule {}

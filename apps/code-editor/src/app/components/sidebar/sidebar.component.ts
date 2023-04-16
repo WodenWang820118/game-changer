@@ -2,7 +2,7 @@ import { Observable, map, first, withLatestFrom } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Chapter } from '../../interfaces/chapter.interface';
+import { Chapter } from '@game/data-access/code-editor-data';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ChapterComponent } from '../chapter/chapter.component';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
@@ -25,8 +25,9 @@ import { ChapterEntityService } from '../../services/chapter-entity.service';
         <a><mat-icon (click)="previousChapter()">arrow_back</mat-icon></a>
         <div class="sidebar__nav__select" (click)="onClickChapter()">
           <div><mat-icon>menu</mat-icon></div>
-          <!-- TODO: reflect the selected title -->
-          <div><strong>Introduction</strong>&nbsp;/&nbsp;Basics</div>
+          <div>
+            <strong>{{ (chapter$ | async)?.title }}</strong>
+          </div>
           <mat-form-field appearance="fill" class="sidebar__chapter-select">
             <mat-label>Chapter</mat-label>
             <mat-select #select>

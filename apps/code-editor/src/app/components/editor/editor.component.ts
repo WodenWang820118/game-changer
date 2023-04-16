@@ -11,17 +11,20 @@ import { EditorService } from '../../services/editor.service';
   standalone: true,
   selector: 'game-editor',
   styles: [``],
-  template: `<div id="cm-editor" #editor>
-    <div tabindex="-1" class="cm-scroller"></div>
-  </div>`,
+  template: `<div id="cm-editor" #editor></div>`,
 })
 export class EditorComponent implements AfterViewInit {
   @Input() editorExtension = 'html';
+  @Input() content = '';
   @ViewChild('editor') editorElement!: ElementRef<HTMLDivElement>;
 
   constructor(private readonly editorService: EditorService) {}
 
   ngAfterViewInit() {
-    this.editorService.initEditorView(this.editorExtension, this.editorElement);
+    this.editorService.initEditorView(
+      this.editorExtension,
+      this.editorElement,
+      this.content
+    );
   }
 }

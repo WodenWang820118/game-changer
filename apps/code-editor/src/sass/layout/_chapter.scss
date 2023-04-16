@@ -40,7 +40,7 @@
     border-top: 1px solid rgba(255, 255, 255, .1);
     font-size: $font-size-xl;
     font-weight: $font-weight-light;
-    
+
     &__btn {
       border: none;
       top: 0.1em;
@@ -70,11 +70,24 @@
   &__editor {
     display: flex;
     align-items: center;
-    border-left: 2px solid $light;
-    cursor: pointer;
+    gap: 1rem;
+    margin-top: 20px;
+    width: fit-content;
 
     &__edit {
-      transform: scale(0.6);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      border-left: 2px solid $light;
+      cursor: pointer;
+
+      &:hover {
+        border-bottom: 1px solid $light;
+      }
+    }
+
+    &__icon {
+      transform: scale(0.75);
     }
   }
 }

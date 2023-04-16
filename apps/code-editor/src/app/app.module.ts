@@ -32,11 +32,16 @@ import { EditorService } from './services/editor.service';
 import { ChaptersDataService } from './services/chapters.data.service';
 import { ChapterResolver } from './services/chapter.resolver';
 import { ChapterEntityService } from './services/chapter-entity.service';
+import { ChapterCustomurlHttpGenerator } from './services/chapter-customurl-http-generator.service';
 
 // ngrx
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { DefaultDataServiceConfig, EntityDataModule } from '@ngrx/data';
+import {
+  DefaultDataServiceConfig,
+  EntityDataModule,
+  HttpUrlGenerator,
+} from '@ngrx/data';
 import { EffectsModule } from '@ngrx/effects';
 import {
   EntityDataService,
@@ -44,16 +49,13 @@ import {
   DefaultDataServiceFactory,
 } from '@ngrx/data';
 import { metaReducers, reducers } from './reducers';
-import {
-  entityConfig,
-  defaultDataServiceConfig,
-} from './services/entity-metadata';
+import { entityConfig } from './services/entity-metadata';
 
 // others
 import { environment } from '../environments/environment';
 
 // feature modules
-import { DataAccessCodeEditorModule } from '@game/data-access/code-editor';
+import { DataAccessCodeEditorDataModule } from '@game/data-access/code-editor-data';
 
 const chapterRoutes: Routes = [
   {
@@ -104,7 +106,7 @@ const chapterRoutes: Routes = [
     EffectsModule.forRoot([]),
     EntityDataModule.forRoot(entityConfig),
     RouterModule.forRoot(chapterRoutes),
-    DataAccessCodeEditorModule,
+    DataAccessCodeEditorDataModule,
   ],
   providers: [
     EditorService,
@@ -114,7 +116,7 @@ const chapterRoutes: Routes = [
     ChapterEntityService,
     ChaptersDataService,
     ChapterResolver,
-    { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
+    { provide: HttpUrlGenerator, useClass: ChapterCustomurlHttpGenerator },
     { provide: 'FIREBASE_CONFIG', useValue: environment.firebaseConfig },
   ],
   bootstrap: [AppComponent],

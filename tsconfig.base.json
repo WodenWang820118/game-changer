@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@game/data-access/code-editor": [
-        "libs/data-access/code-editor/src/index.ts"
+      "@game/data-access/code-editor-data": [
+        "libs/data-access/code-editor-data/src/index.ts"
       ]
     }
   },
