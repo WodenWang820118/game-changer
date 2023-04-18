@@ -4,7 +4,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
@@ -18,7 +17,7 @@ import { Chapter } from '@game/data-access/code-editor-data';
 import { ToggleAnswerDirective } from '../../directives/toggle-answer.directive';
 import { EditorComponent } from '../editor/editor.component';
 import { ChapterEntityService } from '../../services/chapter-entity.service';
-import { Subject, take, takeUntil, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, switchMap, take, tap, withLatestFrom } from 'rxjs';
 import { EditorService } from '../../services/editor.service';
 import { FormControl } from '@angular/forms';
 
@@ -133,14 +132,13 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['../../../styles.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ChapterComponent implements OnDestroy {
+export class ChapterComponent {
   @Input() chapter: Chapter | null = null;
   @Output() nextChapter = new EventEmitter<number>();
   @Output() deleteChapter = new EventEmitter<number>();
   title = new FormControl('');
   order = new FormControl();
   mode: 'edit' | 'create' | 'default' = 'default';
-  private destroy$ = new Subject<void>();
 
   constructor(
     private chapterEntityService: ChapterEntityService,
@@ -148,21 +146,17 @@ export class ChapterComponent implements OnDestroy {
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   updateMode(currentMode: 'edit' | 'create' | 'default') {
     console.warn('update the mode to: ', currentMode);
     this.mode = currentMode;
     if (currentMode === 'edit') {
       this.title.setValue(this.chapter?.title || '');
       this.order.setValue(this.chapter?.order || '');
-    } else if (currentMode === 'default') {
+    } else if (currentMode === 'create') {
       this.title.setValue('');
       this.order.setValue('');
     }
+
     this.changeDetectorRef.detectChanges();
   }
 
@@ -173,29 +167,27 @@ export class ChapterComponent implements OnDestroy {
 
   onSaveChapter() {
     this.editorService.mdContentSyncObservable
-      .pipe(content => {
-        return content.pipe(
-          tap(content => {
-            if (!this.chapter) return;
-            console.warn('content', content);
-            console.warn('update content', content.split('\n'));
-            const chapterToUpdate: Partial<Chapter> = {
-              id: this.chapter.id,
-              title: this.title.value || 'Untitled',
-              order: this.order.value,
-              content: content.split('\n'),
-            };
-            // update the mode
-            this.updateMode('default');
-            // update the current chapter
-            this.chapter = chapterToUpdate as Chapter;
-            // update the chapter in the store
-            this.chapterEntityService.update(chapterToUpdate);
-          }),
-          takeUntil(this.destroy$)
-        );
-      })
-      .subscribe();
+      .pipe(
+        switchMap(content => {
+          if (!this.chapter) return EMPTY;
+          const chapterToUpdate: Partial<Chapter> = {
+            id: this.chapter.id,
+            title: this.title.value || 'Untitled',
+            order: this.order.value,
+            content: content.split('\n'),
+          };
+
+          // update the mode
+          this.updateMode('default');
+          // update the current chapter
+          this.chapter = chapterToUpdate as Chapter;
+          // update the chapter in the store
+          this.chapterEntityService.update(chapterToUpdate);
+          return EMPTY;
+        })
+      )
+      .subscribe()
+      .unsubscribe();
   }
 
   onCreateChapter() {
@@ -217,10 +209,10 @@ export class ChapterComponent implements OnDestroy {
           // reset the form
           this.title = new FormControl('');
           this.order = new FormControl();
-        }),
-        takeUntil(this.destroy$)
+        })
       )
-      .subscribe();
+      .subscribe()
+      .unsubscribe();
   }
 
   onDeleteChapter() {

@@ -8,163 +8,107 @@ import {
 } from './editor-extensions';
 import { BehaviorSubject, map } from 'rxjs';
 
+export type EditorExtension = 'html' | 'css' | 'js' | 'md';
+type ExtensionArray = any[];
+
 @Injectable({
   providedIn: 'root',
 })
 export class EditorService {
-  htmlEditorBehaviorSubject: BehaviorSubject<EditorView> =
-    new BehaviorSubject<EditorView>(new EditorView());
-  htmlEditor$ = this.htmlEditorBehaviorSubject.asObservable();
-  htmlSubject = new BehaviorSubject(`<div class="red">Hello World</div>`);
-  html$ = this.htmlSubject.asObservable();
+  editorExtensions: Record<EditorExtension, ExtensionArray> = {
+    html: htmlLightEditorExtensions,
+    css: cssLightEditorExtensions,
+    js: jsLightEditorExtensions,
+    md: mdLightEditorExtensions,
+  };
 
-  cssEditorBehaviorSubject: BehaviorSubject<EditorView> =
-    new BehaviorSubject<EditorView>(new EditorView());
-  cssEditor$ = this.cssEditorBehaviorSubject.asObservable();
-  cssSubject = new BehaviorSubject('.red { color: red; }');
-  css$ = this.cssSubject.asObservable();
+  editorSubjects = {
+    html: new BehaviorSubject<EditorView>(new EditorView()),
+    css: new BehaviorSubject<EditorView>(new EditorView()),
+    js: new BehaviorSubject<EditorView>(new EditorView()),
+    md: new BehaviorSubject<EditorView>(new EditorView()),
+  };
 
-  jsEditorBehaviorSubject: BehaviorSubject<EditorView> =
-    new BehaviorSubject<EditorView>(new EditorView());
-  jsEditor$ = this.jsEditorBehaviorSubject.asObservable();
-  jsSubject = new BehaviorSubject(`console.log("hi")`);
-  js$ = this.jsSubject.asObservable();
+  contentSubjects = {
+    html: new BehaviorSubject(`<div class="red">Hello World</div>`),
+    css: new BehaviorSubject('.red { color: red; }'),
+    js: new BehaviorSubject(`console.log("hi")`),
+    md: new BehaviorSubject(`# Hello World`),
+  };
 
-  mdEditorBehaviorSubject: BehaviorSubject<EditorView> =
-    new BehaviorSubject<EditorView>(new EditorView());
-  mdEditor$ = this.mdEditorBehaviorSubject.asObservable();
-  mdSubject = new BehaviorSubject(`# Hello World`);
-  md$ = this.mdSubject.asObservable();
+  editor$ = {
+    html: this.editorSubjects.html.asObservable(),
+    css: this.editorSubjects.css.asObservable(),
+    js: this.editorSubjects.js.asObservable(),
+    md: this.editorSubjects.md.asObservable(),
+  };
+
+  content$ = {
+    html: this.contentSubjects.html.asObservable(),
+    css: this.contentSubjects.css.asObservable(),
+    js: this.contentSubjects.js.asObservable(),
+    md: this.contentSubjects.md.asObservable(),
+  };
+
   mdContentSync = new BehaviorSubject('');
   mdContentSyncObservable = this.mdContentSync.asObservable();
 
-  initHtmlEditorView(elementRef: ElementRef, html?: string) {
-    // 1) Create an EditorView
-    const editorView = new EditorView({
-      extensions: htmlLightEditorExtensions,
-      parent: elementRef.nativeElement,
-    });
+  initEditorView(
+    extension: EditorExtension,
+    elementRef: ElementRef,
+    content?: string
+  ) {
+    let editorView = null;
+    if (extension === 'md') {
+      const mdContentSync = new BehaviorSubject('');
+      editorView = new EditorView({
+        extensions: [
+          ...this.editorExtensions[extension],
+          EditorView.theme({
+            '.cm-content': {
+              display: 'block',
+              textAlign: 'justify',
+              background: 'white',
+              color: 'black',
+              padding: '1em',
+              borderRadius: '3px',
+            },
+            '.cm-gutters': { display: 'none' },
+          }),
+          EditorView.lineWrapping,
+          EditorView.updateListener.of(function (e) {
+            mdContentSync.next(e.state.doc.toString());
+          }),
+        ],
+        parent: elementRef.nativeElement,
+      });
 
-    // 2) Dispatch the initial value
-    editorView.dispatch({
-      changes: {
-        from: 0,
-        insert: html ? html : this.htmlSubject.getValue(),
-        to: editorView.state.doc.length,
-      },
-    });
-
-    // 3) Emit the EditorView to the subject
-    this.htmlEditorBehaviorSubject.next(editorView);
-  }
-
-  setHtml(html: string) {
-    this.htmlSubject.next(html);
-  }
-
-  initCssEditorView(elementRef: ElementRef, css?: string) {
-    const editorView = new EditorView({
-      extensions: cssLightEditorExtensions,
-      parent: elementRef.nativeElement,
-    });
-
-    editorView.dispatch({
-      changes: {
-        from: 0,
-        insert: css ? css : this.cssSubject.getValue(),
-        to: editorView.state.doc.length,
-      },
-    });
-
-    this.cssEditorBehaviorSubject.next(editorView);
-  }
-
-  setCss(css: string) {
-    this.cssSubject.next(css);
-  }
-
-  initJsEditorView(elementRef: ElementRef, js?: string) {
-    const editorView = new EditorView({
-      extensions: jsLightEditorExtensions,
-      parent: elementRef.nativeElement,
-    });
-
-    editorView.dispatch({
-      changes: {
-        from: 0,
-        insert: js ? js : this.jsSubject.getValue(),
-        to: editorView.state.doc.length,
-      },
-    });
-
-    this.jsEditorBehaviorSubject.next(editorView);
-  }
-
-  setJs(js: string) {
-    this.jsSubject.next(js);
-  }
-
-  initMdEditorView(elementRef: ElementRef, md?: string) {
-    const mdContentSync = new BehaviorSubject('');
-    const editorView = new EditorView({
-      extensions: [
-        ...mdLightEditorExtensions,
-        EditorView.theme({
-          '.cm-content': {
-            display: 'block',
-            textAlign: 'justify',
-            background: 'white',
-            color: 'black',
-            padding: '1em',
-            borderRadius: '3px',
-          },
-          '.cm-gutters': { display: 'none' },
-        }),
-        EditorView.lineWrapping,
-        EditorView.updateListener.of(function (e) {
-          // TODO: how to sync the content of the editor with the content of the subject?
-          mdContentSync.next(e.state.doc.toString());
-          // mdContentSync = e.state.doc.toString();
-        }),
-      ],
-      parent: elementRef.nativeElement,
-    });
-
-    editorView.dispatch({
-      changes: {
-        from: 0,
-        insert: md ? md : this.mdSubject.getValue(),
-        to: editorView.state.doc.length,
-      },
-    });
-
-    mdContentSync
-      .pipe(
-        map(md => {
-          this.mdContentSync.next(md);
-        })
-      )
-      .subscribe();
-
-    this.mdEditorBehaviorSubject.next(editorView);
-  }
-
-  initEditorView(extension: string, elementRef: ElementRef, content?: string) {
-    switch (extension) {
-      case 'html':
-        this.initHtmlEditorView(elementRef, content);
-        break;
-      case 'css':
-        this.initCssEditorView(elementRef, content);
-        break;
-      case 'js':
-        this.initJsEditorView(elementRef, content);
-        break;
-      case 'md':
-        this.initMdEditorView(elementRef, content);
-        break;
-      default:
-        break;
+      mdContentSync
+        .pipe(
+          map(md => {
+            this.mdContentSync.next(md);
+          })
+        )
+        .subscribe();
+    } else {
+      editorView = new EditorView({
+        extensions: this.editorExtensions[extension],
+        parent: elementRef.nativeElement,
+      });
     }
+
+    editorView.dispatch({
+      changes: {
+        from: 0,
+        insert: content ? content : this.contentSubjects[extension].getValue(),
+        to: editorView.state.doc.length,
+      },
+    });
+
+    this.editorSubjects[extension].next(editorView);
+  }
+
+  setContent(extension: EditorExtension, content: string) {
+    this.contentSubjects[extension].next(content);
   }
 }
