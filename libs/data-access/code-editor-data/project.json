@@ -1,15 +1,15 @@
 {
-  "name": "data-access-code-editor",
+  "name": "data-access-code-editor-data",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/data-access/code-editor/src",
+  "sourceRoot": "libs/data-access/code-editor-data/src",
   "prefix": "game",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/data-access/code-editor/jest.config.ts",
+        "jestConfig": "libs/data-access/code-editor-data/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -24,8 +24,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/data-access/code-editor/**/*.ts",
-          "libs/data-access/code-editor/**/*.html"
+          "libs/data-access/code-editor-data/**/*.ts",
+          "libs/data-access/code-editor-data/**/*.html"
         ]
       }
     }

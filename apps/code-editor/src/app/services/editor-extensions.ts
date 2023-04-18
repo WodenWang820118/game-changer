@@ -4,6 +4,7 @@ import { keymap } from '@codemirror/view';
 import { javascript } from '@codemirror/lang-javascript';
 import { html } from '@codemirror/lang-html';
 import { css } from '@codemirror/lang-css';
+import { markdown } from '@codemirror/lang-markdown';
 
 import {
   indentWithTab,
@@ -30,6 +31,13 @@ export const jsDarkEditorExtensions = [
   javascript(),
 ];
 
+export const mdDarkEditorExtensions = [
+  ...commonExtensions,
+  oneDark,
+  markdown(),
+];
+
 export const htmlLightEditorExtensions = [...commonExtensions, html()];
 export const cssLightEditorExtensions = [...commonExtensions, css()];
 export const jsLightEditorExtensions = [...commonExtensions, javascript()];
+export const mdLightEditorExtensions = [...commonExtensions, markdown()];

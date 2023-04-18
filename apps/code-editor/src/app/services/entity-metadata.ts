@@ -12,7 +12,3 @@ export const entityConfig = {
   appEntityMetadata,
   pluralNames,
 };
-
-export const defaultDataServiceConfig: DefaultDataServiceConfig = {
-  root: 'http://localhost:3000/chapters',
-};

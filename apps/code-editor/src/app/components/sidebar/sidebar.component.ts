@@ -1,8 +1,8 @@
-import { Observable, map, first, withLatestFrom } from 'rxjs';
+import { Observable, map, first, withLatestFrom, tap, of } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Chapter } from '../../interfaces/chapter.interface';
+import { Chapter } from '@game/data-access/code-editor-data';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ChapterComponent } from '../chapter/chapter.component';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
@@ -25,7 +25,9 @@ import { ChapterEntityService } from '../../services/chapter-entity.service';
         <a><mat-icon (click)="previousChapter()">arrow_back</mat-icon></a>
         <div class="sidebar__nav__select" (click)="onClickChapter()">
           <div><mat-icon>menu</mat-icon></div>
-          <div><strong>Introduction</strong>&nbsp;/&nbsp;Basics</div>
+          <div>
+            <strong>{{ (chapter$ | async)?.title }}</strong>
+          </div>
           <mat-form-field appearance="fill" class="sidebar__chapter-select">
             <mat-label>Chapter</mat-label>
             <mat-select #select>
@@ -44,6 +46,8 @@ import { ChapterEntityService } from '../../services/chapter-entity.service';
       <ng-scrollbar [viewClass]="'sidebar__markup'" class="scrollbar">
         <game-chapter
           scrollViewport
+          (nextChapter)="nextChapter()"
+          (deleteChapter)="deleteChapter($event)"
           [chapter]="chapter$ | async"></game-chapter>
       </ng-scrollbar>
     </div>
@@ -76,7 +80,7 @@ export class SidebarNavComponent implements OnInit {
         const index = chapters.findIndex(
           chapter => chapter.id === currentChapter.id
         );
-        return index >= 0 ? chapters[index - 1] : chapters[0];
+        return index > 0 ? chapters[index - 1] : chapters[0];
       })
     );
   }
@@ -107,5 +111,23 @@ export class SidebarNavComponent implements OnInit {
           chapters.find(chapter => chapter.id === chapterId) || chapters[0]
       )
     );
+  }
+
+  deleteChapter(chapterId: number) {
+    this.chapterEntityService
+      .delete(chapterId)
+      .pipe(
+        withLatestFrom(this.chapterEntityService.entities$),
+        first(),
+        tap(([_, chapters]) => {
+          console.warn(chapters);
+          this.chapter$ = of(
+            chapters.find(chapter => chapter.id === chapterId - 1) ||
+              chapters[0]
+          );
+        })
+      )
+      .subscribe()
+      .unsubscribe();
   }
 }

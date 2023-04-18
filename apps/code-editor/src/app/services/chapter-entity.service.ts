@@ -2,7 +2,7 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
-import { Chapter } from '../interfaces/chapter.interface';
+import { Chapter } from '@game/data-access/code-editor-data';
 import { Injectable } from '@angular/core';
 
 // the facade entity service
