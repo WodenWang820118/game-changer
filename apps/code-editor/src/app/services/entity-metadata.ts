@@ -1,4 +1,4 @@
-import { DefaultDataServiceConfig, EntityMetadataMap } from '@ngrx/data';
+import { EntityMetadataMap } from '@ngrx/data';
 
 const appEntityMetadata: EntityMetadataMap = {
   Chapter: {},
