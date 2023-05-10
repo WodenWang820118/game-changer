@@ -27,14 +27,14 @@ export class RendererComponent implements OnInit {
     private readonly sanitizer: DomSanitizer
   ) {}
   ngOnInit(): void {
-    this.safeHtml$ = this.editorService.html$.pipe(
+    this.safeHtml$ = this.editorService.content$.html.pipe(
       map(html => {
         // console.log('rendering html', html);
         return this.sanitizer.sanitize(SecurityContext.HTML, html) as string;
       })
     );
 
-    this.editorService.css$
+    this.editorService.content$.css
       .pipe(
         tap(css => {
           // console.log('rendering css', css);

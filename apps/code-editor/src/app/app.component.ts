@@ -14,17 +14,25 @@ export class AppComponent {
   constructor(private editorService: EditorService) {}
 
   onPlay() {
-    console.log('onPlay');
     combineLatest([
-      this.editorService.htmlEditor$,
-      this.editorService.cssEditor$,
-      this.editorService.jsEditor$,
+      this.editorService.editor$.html,
+      this.editorService.editor$.css,
+      this.editorService.editor$.js,
     ])
       .pipe(
         tap(([htmlEditor, cssEditor, jsEditor]) => {
-          this.editorService.setHtml(htmlEditor.state.doc.toString() as string);
-          this.editorService.setCss(cssEditor.state.doc.toString() as string);
-          this.editorService.setJs(jsEditor.state.doc.toString() as string);
+          this.editorService.setContent(
+            'html',
+            htmlEditor.state.doc.toString() as string
+          );
+          this.editorService.setContent(
+            'css',
+            cssEditor.state.doc.toString() as string
+          );
+          this.editorService.setContent(
+            'js',
+            jsEditor.state.doc.toString() as string
+          );
         })
       )
       .subscribe();

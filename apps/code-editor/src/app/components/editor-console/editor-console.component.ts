@@ -61,7 +61,7 @@ export class EditorConsoleComponent implements AfterViewInit, OnInit {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).console = customConsole;
 
-    this.output$ = this.editorService.js$.pipe(
+    this.output$ = this.editorService.content$.js.pipe(
       map(js => {
         // Use console.log to capture the output
         let output = '';

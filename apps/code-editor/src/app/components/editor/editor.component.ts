@@ -5,7 +5,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { EditorService } from '../../services/editor.service';
+import { EditorExtension, EditorService } from '../../services/editor.service';
 
 @Component({
   standalone: true,
@@ -14,7 +14,7 @@ import { EditorService } from '../../services/editor.service';
   template: `<div id="cm-editor" #editor></div>`,
 })
 export class EditorComponent implements AfterViewInit {
-  @Input() editorExtension = 'html';
+  @Input() editorExtension: EditorExtension = 'html';
   @Input() content = '';
   @ViewChild('editor') editorElement!: ElementRef<HTMLDivElement>;
 

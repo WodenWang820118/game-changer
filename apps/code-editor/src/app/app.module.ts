@@ -37,12 +37,7 @@ import { ChapterCustomurlHttpGenerator } from './services/chapter-customurl-http
 // ngrx
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import {
-  DefaultDataServiceConfig,
-  EntityDataModule,
-  HttpUrlGenerator,
-} from '@ngrx/data';
-import { EffectsModule } from '@ngrx/effects';
+import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
 import {
   EntityDataService,
   EntityDefinitionService,
@@ -103,7 +98,6 @@ const chapterRoutes: Routes = [
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([]),
     EntityDataModule.forRoot(entityConfig),
     RouterModule.forRoot(chapterRoutes),
     DataAccessCodeEditorDataModule,
