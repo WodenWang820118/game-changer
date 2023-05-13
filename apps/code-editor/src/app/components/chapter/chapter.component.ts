@@ -16,9 +16,9 @@ import { MatInputModule } from '@angular/material/input';
 import { Chapter } from '@game/data-access/code-editor-data';
 import { ToggleAnswerDirective } from '../../directives/toggle-answer.directive';
 import { EditorComponent } from '../editor/editor.component';
-import { ChapterEntityService } from '../../services/chapter-entity.service';
+import { ChapterEntityService } from '../../services/chapters/chapter-entity.service';
 import { EMPTY, switchMap, take, tap, withLatestFrom } from 'rxjs';
-import { EditorService } from '../../services/editor.service';
+import { EditorService } from '../../services/editor/editor.service';
 import { FormControl } from '@angular/forms';
 
 @Component({

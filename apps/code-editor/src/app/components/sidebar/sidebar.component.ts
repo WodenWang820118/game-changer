@@ -6,7 +6,7 @@ import { Chapter } from '@game/data-access/code-editor-data';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ChapterComponent } from '../chapter/chapter.component';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
-import { ChapterEntityService } from '../../services/chapter-entity.service';
+import { ChapterEntityService } from '../../services/chapters/chapter-entity.service';
 
 @Component({
   selector: 'game-sidebar',

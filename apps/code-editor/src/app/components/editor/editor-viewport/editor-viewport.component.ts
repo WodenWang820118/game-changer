@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EditorComponent } from '../editor.component';
-import { EditorExtension } from '../../../services/editor.service';
+import { EditorExtension } from '../../../services/editor/editor.service';
 
 @Component({
   selector: 'game-editor-viewport',

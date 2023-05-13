@@ -12,7 +12,7 @@ import {
   defaultKeymap,
   historyKeymap,
 } from '@codemirror/commands';
-import { oneDark } from '../../themes/one-dark';
+import { oneDark } from '../../../themes/one-dark';
 
 const commonExtensions = [
   basicSetup,
