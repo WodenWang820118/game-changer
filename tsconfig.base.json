@@ -15,9 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@game/data-access/authentication": [
+        "libs/data-access/authentication/src/index.ts"
+      ],
       "@game/data-access/code-editor-data": [
         "libs/data-access/code-editor-data/src/index.ts"
-      ]
+      ],
+      "@game/data-access/user": ["libs/data-access/user/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

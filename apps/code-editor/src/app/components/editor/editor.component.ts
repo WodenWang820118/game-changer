@@ -5,7 +5,10 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { EditorExtension, EditorService } from '../../services/editor.service';
+import {
+  EditorExtension,
+  EditorService,
+} from '../../services/editor/editor.service';
 
 @Component({
   standalone: true,

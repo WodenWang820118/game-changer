@@ -26,18 +26,20 @@ import { RendererViewportComponent } from './components/renderer/renderer-viewpo
 // directives
 import { ResizableDirective } from './directives/resizable.directive';
 import { ConsoleInteractDirective } from './directives/console-interact.directive';
+import { MenuItemLinkDirective } from './directives/menu-item-link.directive';
 
 // services
-import { EditorService } from './services/editor.service';
-import { ChaptersDataService } from './services/chapters.data.service';
-import { ChapterResolver } from './services/chapter.resolver';
-import { ChapterEntityService } from './services/chapter-entity.service';
-import { ChapterCustomurlHttpGenerator } from './services/chapter-customurl-http-generator.service';
+import { EditorService } from './services/editor/editor.service';
+import { ChaptersDataService } from './services/chapters/chapters.data.service';
+import { ChapterResolver } from './services/chapters/chapter.resolver';
+import { ChapterEntityService } from './services/chapters/chapter-entity.service';
+import { ChapterCustomurlHttpGenerator } from './services/chapters/chapter-customurl-http-generator.service';
 
 // ngrx
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
+import { EffectsModule } from '@ngrx/effects';
 import {
   EntityDataService,
   EntityDefinitionService,
@@ -51,6 +53,8 @@ import { environment } from '../environments/environment';
 
 // feature modules
 import { DataAccessCodeEditorDataModule } from '@game/data-access/code-editor-data';
+import { DataAccessAuthenticationModule } from '@game/data-access/authentication';
+import { DataAccessUserModule } from '@game/data-access/user';
 
 const chapterRoutes: Routes = [
   {
@@ -84,6 +88,7 @@ const chapterRoutes: Routes = [
     MarkdownModule.forRoot({ loader: HttpClient }),
     ResizableDirective,
     ConsoleInteractDirective,
+    EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -101,6 +106,9 @@ const chapterRoutes: Routes = [
     EntityDataModule.forRoot(entityConfig),
     RouterModule.forRoot(chapterRoutes),
     DataAccessCodeEditorDataModule,
+    DataAccessAuthenticationModule,
+    DataAccessUserModule,
+    MenuItemLinkDirective,
   ],
   providers: [
     EditorService,

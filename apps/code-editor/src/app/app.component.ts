@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { EditorService } from './services/editor.service';
+import { EditorService } from './services/editor/editor.service';
 import { combineLatest, tap } from 'rxjs';
 
 @Component({

@@ -4,7 +4,7 @@ import {
   Pluralizer,
 } from '@ngrx/data';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 // the facade entity service
 @Injectable()

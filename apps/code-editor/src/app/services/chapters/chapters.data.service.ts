@@ -3,7 +3,7 @@ import { Chapter } from '@game/data-access/code-editor-data';
 import { Injectable } from '@angular/core';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
 import { Observable, catchError, map, of } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Update } from '@ngrx/entity';
 import { FirebaseService } from '@game/data-access/code-editor-data';
 

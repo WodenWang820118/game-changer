@@ -21,7 +21,7 @@ import { RegularMenuComponent } from './regular-menu/regular-menu.component';
 })
 export class MenuComponent implements OnInit {
   @Input() showHamburgerMenu = false;
-  menuItems = ['Kit', 'Discord', 'GitHub'];
+  menuItems = ['Discord', 'GitHub', 'Sign In'];
   ngOnInit() {
     this.onChangingMenuType();
   }

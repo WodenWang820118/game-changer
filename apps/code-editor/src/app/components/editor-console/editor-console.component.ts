@@ -7,7 +7,7 @@ import {
   SecurityContext,
   ViewChild,
 } from '@angular/core';
-import { EditorService } from '../../services/editor.service';
+import { EditorService } from '../../services/editor/editor.service';
 import { Observable, map } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
