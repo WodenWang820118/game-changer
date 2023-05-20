@@ -128,11 +128,13 @@ export class SidebarNavComponent implements OnInit {
 
   onSelectChapter(currentChapter: Chapter) {
     this.chapter$ = this.chapterEntityService.entities$.pipe(
-      map(
-        chapters =>
+      map(chapters => {
+        const chapter =
           chapters.find(chapter => chapter.order === currentChapter.order) ||
-          chapters[0]
-      )
+          chapters[0];
+        this.chapterUiService.updateCurrentChapter(chapter);
+        return chapter;
+      })
     );
   }
 
