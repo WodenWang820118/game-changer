@@ -34,6 +34,7 @@ import { ChaptersDataService } from './services/chapters/chapters.data.service';
 import { ChapterResolver } from './services/chapters/chapter.resolver';
 import { ChapterEntityService } from './services/chapters/chapter-entity.service';
 import { ChapterCustomurlHttpGenerator } from './services/chapters/chapter-customurl-http-generator.service';
+import { ChapterUiService } from './services/chapter.ui.service';
 
 // ngrx
 import { StoreModule } from '@ngrx/store';
@@ -98,7 +99,6 @@ const chapterRoutes: Routes = [
         strictStateSerializability: true,
       },
     }),
-    StoreModule.forFeature('chapters', reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -120,6 +120,7 @@ const chapterRoutes: Routes = [
     ChapterResolver,
     { provide: HttpUrlGenerator, useClass: ChapterCustomurlHttpGenerator },
     { provide: 'FIREBASE_CONFIG', useValue: environment.firebaseConfig },
+    ChapterUiService,
   ],
   bootstrap: [AppComponent],
 })
@@ -129,7 +130,7 @@ export class AppModule {
     private entityDataService: EntityDataService,
     private chapterDataService: ChaptersDataService
   ) {
-    this.eds.registerMetadataMap(entityConfig.appEntityMetadata);
+    this.eds.registerMetadataMap(entityConfig.entityEntityMetadata);
     this.entityDataService.registerService('Chapter', this.chapterDataService);
   }
 }

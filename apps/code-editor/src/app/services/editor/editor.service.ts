@@ -109,6 +109,15 @@ export class EditorService {
   }
 
   setContent(extension: EditorExtension, content: string) {
+    // set content in contentSubjects
     this.contentSubjects[extension].next(content);
+    // dispatch content to editorView
+    this.editorSubjects[extension].getValue().dispatch({
+      changes: {
+        from: 0,
+        insert: content,
+        to: this.editorSubjects[extension].getValue().state.doc.length,
+      },
+    });
   }
 }

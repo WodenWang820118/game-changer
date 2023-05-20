@@ -27,7 +27,13 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
           const errorChapter: Chapter = {
             id: 0,
             title: 'Backend Error',
+            order: 0,
             content: errorMessage,
+            code: {
+              html: '',
+              css: '',
+              js: '',
+            },
           };
           return of([errorChapter]);
         })
@@ -40,7 +46,13 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
           const errorChapter: Chapter = {
             id: 0,
             title: 'Backend Error',
+            order: 0,
             content: errorMessage,
+            code: {
+              html: '',
+              css: '',
+              js: '',
+            },
           };
           return of([errorChapter]);
         })
@@ -51,7 +63,13 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
     const errorChapter: Chapter = {
       id: 0,
       title: 'Backend Error',
+      order: 0,
       content: errorMessage,
+      code: {
+        html: '',
+        css: '',
+        js: '',
+      },
     };
 
     return of([errorChapter]);
@@ -70,7 +88,13 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
     return of({
       id: 0,
       title: 'Backend Error',
+      order: 0,
       content: ['Failed to update the chapter in the backend service'],
+      code: {
+        html: '',
+        css: '',
+        js: '',
+      },
     });
   }
 
@@ -84,7 +108,13 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
     return of({
       id: 0,
       title: 'Backend Error',
+      order: 0,
       content: ['Failed to add the chapter in the backend service'],
+      code: {
+        html: '',
+        css: '',
+        js: '',
+      },
     });
   }
 

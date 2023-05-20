@@ -1,6 +1,6 @@
 import { EntityMetadataMap } from '@ngrx/data';
 
-const appEntityMetadata: EntityMetadataMap = {
+const entityEntityMetadata: EntityMetadataMap = {
   Chapter: {},
 };
 
@@ -9,6 +9,6 @@ const pluralNames = {
 };
 
 export const entityConfig = {
-  appEntityMetadata,
+  entityEntityMetadata,
   pluralNames,
 };

@@ -1,4 +1,12 @@
-import { Observable, map, first, withLatestFrom, tap, of } from 'rxjs';
+import {
+  Observable,
+  map,
+  first,
+  tap,
+  of,
+  combineLatest,
+  withLatestFrom,
+} from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,6 +15,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ChapterComponent } from '../chapter/chapter.component';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { ChapterEntityService } from '../../services/chapters/chapter-entity.service';
+import { ChapterUiService } from '../../services/chapter.ui.service';
 
 @Component({
   selector: 'game-sidebar',
@@ -18,7 +27,6 @@ import { ChapterEntityService } from '../../services/chapters/chapter-entity.ser
     ChapterComponent,
     MatSelectModule,
   ],
-  providers: [ChapterEntityService],
   template: `
     <div class="sidebar">
       <div class="sidebar__nav">
@@ -35,7 +43,7 @@ import { ChapterEntityService } from '../../services/chapters/chapter-entity.ser
                 *ngFor="let chapter of chapters$ | async"
                 [value]="chapter.title"
                 #chapterOption
-                (click)="onSelectChapter(chapter.id)"
+                (click)="onSelectChapter(chapter)"
                 >{{ chapter.title }}</mat-option
               >
             </mat-select>
@@ -59,7 +67,10 @@ export class SidebarNavComponent implements OnInit {
   chapters$: Observable<Chapter[]> = new Observable();
   chapter$: Observable<Chapter> = new Observable();
 
-  constructor(private chapterEntityService: ChapterEntityService) {}
+  constructor(
+    private chapterEntityService: ChapterEntityService,
+    private chapterUiService: ChapterUiService
+  ) {}
 
   ngOnInit(): void {
     this.chapters$ = this.chapterEntityService.entities$.pipe(
@@ -72,28 +83,39 @@ export class SidebarNavComponent implements OnInit {
     this.select.open();
   }
 
+  // TODO: could be called a lot of times, need to fix it
   previousChapter(): void {
-    this.chapter$ = this.chapter$.pipe(
-      withLatestFrom(this.chapterEntityService.entities$),
+    this.chapter$ = combineLatest([
+      this.chapter$,
+      this.chapterEntityService.entities$,
+    ]).pipe(
       first(),
       map(([currentChapter, chapters]) => {
         const index = chapters.findIndex(
-          chapter => chapter.id === currentChapter.id
+          chapter => chapter.order === currentChapter.order
         );
-        return index > 0 ? chapters[index - 1] : chapters[0];
+        const chapter = index > 0 ? chapters[index - 1] : chapters[0];
+        this.chapterUiService.updateCurrentChapter(chapter);
+        return chapter;
       })
     );
   }
 
+  // TODO: could be called a lot of times, need to fix it
   nextChapter(): void {
-    this.chapter$ = this.chapter$.pipe(
-      withLatestFrom(this.chapterEntityService.entities$),
+    this.chapter$ = combineLatest([
+      this.chapter$,
+      this.chapterEntityService.entities$,
+    ]).pipe(
       first(),
       map(([currentChapter, chapters]) => {
         const index = chapters.findIndex(
-          chapter => chapter.id === currentChapter.id
+          chapter => chapter.order === currentChapter.order
         );
-        return index < chapters.length - 1 ? chapters[index + 1] : chapters[0];
+        const chapter =
+          index < chapters.length - 1 ? chapters[index + 1] : chapters[0];
+        this.chapterUiService.updateCurrentChapter(chapter);
+        return chapter;
       })
     );
   }
@@ -104,25 +126,27 @@ export class SidebarNavComponent implements OnInit {
     );
   }
 
-  onSelectChapter(chapterId: number) {
+  onSelectChapter(currentChapter: Chapter) {
     this.chapter$ = this.chapterEntityService.entities$.pipe(
       map(
         chapters =>
-          chapters.find(chapter => chapter.id === chapterId) || chapters[0]
+          chapters.find(chapter => chapter.order === currentChapter.order) ||
+          chapters[0]
       )
     );
   }
 
-  deleteChapter(chapterId: number) {
+  deleteChapter(chapter: Chapter) {
     this.chapterEntityService
-      .delete(chapterId)
+      .delete(chapter.id)
       .pipe(
         withLatestFrom(this.chapterEntityService.entities$),
         first(),
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         tap(([_, chapters]) => {
           console.warn(chapters);
           this.chapter$ = of(
-            chapters.find(chapter => chapter.id === chapterId - 1) ||
+            chapters.find(chapter => chapter.order === chapter.order - 1) ||
               chapters[0]
           );
         })
