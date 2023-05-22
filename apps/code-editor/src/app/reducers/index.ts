@@ -1,12 +1,19 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../environments/environment';
+import {
+  ChapterState,
+  chapterReducer,
+} from '../services/chapters/chapter.reducers';
 
 // global state interface
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AppState {}
+export interface AppState {
+  chapters: ChapterState;
+}
 
 // reducers
-export const reducers: ActionReducerMap<AppState> = {};
+export const reducers: ActionReducerMap<AppState> = {
+  chapters: chapterReducer,
+};
 
 export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state, action) => {

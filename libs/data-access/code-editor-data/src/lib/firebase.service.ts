@@ -56,7 +56,13 @@ export class FirebaseService {
       return of({
         id: 0,
         title: 'Backend Error',
+        order: 0,
         content: ['Failed to update the chapter in the Firebase'],
+        code: {
+          html: '',
+          css: '',
+          js: '',
+        },
       });
     // the document id is the same as the chapter id
     const chapterDoc = doc(this.db, this.CHAPTERS_COLLECTION, String(id));
@@ -72,7 +78,13 @@ export class FirebaseService {
       return of({
         id: 0,
         title: 'Backend Error',
+        order: 0,
         content: ['Failed to add the chapter in the Firebase'],
+        code: {
+          html: '',
+          css: '',
+          js: '',
+        },
       });
 
     return from(

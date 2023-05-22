@@ -1,9 +1,9 @@
 {
   "chapters": [
     {
-      "id": 1,
+      "id": "1",
+      "order": 1,
       "title": "Introduction",
-      "order": "",
       "content": [
         "## Introduction",
         "Welcome to the CV Project - a beginner-level project designed to help you learn the basics of web development. In this project, you will create a simple online resume or CV using HTML, CSS, and JavaScript. This project will teach you how to structure your content using HTML, style your content using CSS, and add interactivity to your page using JavaScript. By the end of this project, you'll have a beautiful and functional online resume that you can use to showcase your skills and experience to potential employers.",
@@ -21,10 +21,15 @@
         "- JavaScript basics",
         "- Version Control with Git (if you decide to use it to manage your code)",
         "So what are you waiting for? Let's get started and build your first online resume!"
-      ]
+      ],
+      "code": {
+        "html": "<div class=\"red\">Hello World</div>\n<div>The answer</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"hi\")"
+      }
     },
     {
-      "id": 2,
+      "id": "2",
       "order": 2,
       "title": "a. Basics",
       "content": [
@@ -43,10 +48,15 @@
         "",
         "## Your First Step: resume title",
         "Create a h1 title with you name."
-      ]
+      ],
+      "code": {
+        "html": "<div class=\"red\">Hello World</div>\n<div>The answer with chapter2</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"hi\")"
+      }
     },
     {
-      "id": 3,
+      "id": "3",
       "order": 3,
       "title": "b. paragraph and list: self-introduction & bullet points skills",
       "content": [
@@ -57,94 +67,25 @@
         "- HTML",
         "- CSS",
         "- JavaScript"
-      ]
+      ],
+      "code": {
+        "html": "<div class=\"red\">Hello World</div>\n<div>The answer with chapter 3</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"hi\")"
+      }
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "New Chapter",
       "order": 3,
       "content": [
         "Please add your content"
-      ]
-    },
-    {
-      "id": 5,
-      "title": "123445",
-      "order": 5,
-      "content": [
-        "please add content"
-      ]
-    },
-    {
-      "id": 6,
-      "title": "Untitled",
-      "order": 6,
-      "content": [
-        "please add content"
-      ]
-    },
-    {
-      "id": 7,
-      "title": "Untitled",
-      "order": 7,
-      "content": [
-        "please add content"
-      ]
-    },
-    {
-      "id": 8,
-      "title": "Untitled",
-      "order": 8,
-      "content": [
-        "please add content"
-      ]
-    },
-    {
-      "id": 9,
-      "title": "Untitled",
-      "order": 9,
-      "content": [
-        "please add content"
-      ]
-    },
-    {
-      "id": 10,
-      "title": "Untitled",
-      "order": 10,
-      "content": [
-        "please add content"
-      ]
-    },
-    {
-      "id": 11,
-      "title": "Untitled",
-      "order": 11,
-      "content": [
-        "please add content"
-      ]
-    },
-    {
-      "id": 12,
-      "title": "Untitled1",
-      "order": 12,
-      "content": [
-        "## Introduction",
-        "Welcome to the CV Project - a beginner-level project designed to help you learn the basics of web development. In this project, you will create a simple online resume or CV using HTML, CSS, and JavaScript. This project will teach you how to structure your content using HTML, style your content using CSS, and add interactivity to your page using JavaScript. By the end of this project, you'll have a beautiful and functional online resume that you can use to showcase your skills and experience to potential employers.",
-        "",
-        "## Expected Outcomes",
-        "By the end of the CV Project, you will have gained the following skills:",
-        "- HTML: You will learn how to structure your content using HTML tags and create headings, paragraphs, lists, and links.",
-        "- CSS: You will learn how to style your content using CSS, including how to change font styles and colors and how the box model works.",
-        "- JavaScript: You will learn how to query the HTML elements and make your resume organized.",
-        "",
-        "## Skills you will learn",
-        "By completing this project, you will learn the following skills:",
-        "- HTML basics",
-        "- CSS basics",
-        "- JavaScript basics",
-        "- Version Control with Git (if you decide to use it to manage your code)",
-        "So what are you waiting for? Let's get started and build your first online resume!"
-      ]
+      ],
+      "code": {
+        "html": "<div class=\"red\">Hello World</div>\n<div>The answer unkown</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"hi\")"
+      }
     }
   ]
 }
