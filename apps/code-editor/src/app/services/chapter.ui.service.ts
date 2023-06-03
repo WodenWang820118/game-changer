@@ -32,6 +32,6 @@ export class ChapterUiService {
 
   updateCurrentChapter(chapter: Chapter) {
     this.currentChapter.next(chapter);
-    console.warn('update the current chapter to: ', chapter);
+    // console.warn('update the current chapter to: ', chapter);
   }
 }

@@ -50,7 +50,7 @@ export class EditorViewportComponent implements AfterViewInit {
         tap(chapter => {
           if (chapter === undefined) return;
           if (chapter.order > 0) {
-            console.warn('The current chapter is: ', chapter);
+            // console.warn('The current chapter is: ', chapter);
             this.editorService.setContent(this.htmlEditor, chapter.code.html);
             this.editorService.setContent(this.cssEditor, chapter.code.css);
             this.editorService.setContent(this.jsEditor, chapter.code.js);
