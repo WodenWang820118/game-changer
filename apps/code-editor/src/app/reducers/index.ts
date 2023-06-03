@@ -1,19 +1,11 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import {
-  ChapterState,
-  chapterReducer,
-} from '../services/chapters/chapter.reducers';
 
 // global state interface
-export interface AppState {
-  chapters: ChapterState;
-}
+export interface AppState {}
 
 // reducers
-export const reducers: ActionReducerMap<AppState> = {
-  chapters: chapterReducer,
-};
+export const reducers: ActionReducerMap<AppState> = {};
 
 export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state, action) => {

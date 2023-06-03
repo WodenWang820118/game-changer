@@ -83,13 +83,11 @@ export class SidebarNavComponent implements OnInit {
     this.select.open();
   }
 
-  // TODO: could be called a lot of times, need to fix it
   previousChapter(): void {
     this.chapter$ = combineLatest([
       this.chapter$,
       this.chapterEntityService.entities$,
     ]).pipe(
-      first(),
       map(([currentChapter, chapters]) => {
         const index = chapters.findIndex(
           chapter => chapter.order === currentChapter.order
@@ -97,17 +95,16 @@ export class SidebarNavComponent implements OnInit {
         const chapter = index > 0 ? chapters[index - 1] : chapters[0];
         this.chapterUiService.updateCurrentChapter(chapter);
         return chapter;
-      })
+      }),
+      first()
     );
   }
 
-  // TODO: could be called a lot of times, need to fix it
   nextChapter(): void {
     this.chapter$ = combineLatest([
       this.chapter$,
       this.chapterEntityService.entities$,
     ]).pipe(
-      first(),
       map(([currentChapter, chapters]) => {
         const index = chapters.findIndex(
           chapter => chapter.order === currentChapter.order
@@ -116,7 +113,8 @@ export class SidebarNavComponent implements OnInit {
           index < chapters.length - 1 ? chapters[index + 1] : chapters[0];
         this.chapterUiService.updateCurrentChapter(chapter);
         return chapter;
-      })
+      }),
+      first()
     );
   }
 
@@ -134,7 +132,8 @@ export class SidebarNavComponent implements OnInit {
           chapters[0];
         this.chapterUiService.updateCurrentChapter(chapter);
         return chapter;
-      })
+      }),
+      first()
     );
   }
 

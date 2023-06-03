@@ -39,15 +39,17 @@ import { ChapterUiService } from './services/chapter.ui.service';
 // ngrx
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
+import {
+  EntityDataModule,
+  EntityMetadataMap,
+  HttpUrlGenerator,
+} from '@ngrx/data';
 import { EffectsModule } from '@ngrx/effects';
 import {
   EntityDataService,
   EntityDefinitionService,
   DefaultDataServiceFactory,
 } from '@ngrx/data';
-import { metaReducers, reducers } from './reducers';
-import { entityConfig } from './services/entity-metadata';
 
 // others
 import { environment } from '../environments/environment';
@@ -67,6 +69,33 @@ const chapterRoutes: Routes = [
   },
 ];
 
+// effects module and store module are for custom data operations
+const ngRxSettings = [
+  EffectsModule.forRoot([]),
+  StoreModule.forRoot({}),
+  StoreDevtoolsModule.instrument({
+    maxAge: 25,
+    logOnly: environment.production,
+  }),
+  EntityDataModule.forRoot({}),
+];
+
+const entityMetaData: EntityMetadataMap = {
+  Chapter: {
+    entityDispatcherOptions: {
+      optimisticUpdate: true,
+    },
+  },
+};
+
+const materialModules = [MatTabsModule, MatIconModule];
+
+const directives = [
+  ResizableDirective,
+  ConsoleInteractDirective,
+  MenuItemLinkDirective,
+];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -74,7 +103,6 @@ const chapterRoutes: Routes = [
     EditorComponent,
     RendererComponent,
     PlayButtonComponent,
-    MatTabsModule,
     BrowserAnimationsModule,
     EditorConsoleComponent,
     SidebarNavComponent,
@@ -85,30 +113,14 @@ const chapterRoutes: Routes = [
     RendererViewportComponent,
     NgScrollbarModule,
     HttpClientModule,
-    MatIconModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
-    ResizableDirective,
-    ConsoleInteractDirective,
-    EffectsModule.forRoot([]),
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictActionSerializability: true,
-        strictStateSerializability: true,
-      },
-    }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
-    EntityDataModule.forRoot(entityConfig),
     RouterModule.forRoot(chapterRoutes),
     DataAccessCodeEditorDataModule,
     DataAccessAuthenticationModule,
     DataAccessUserModule,
-    MenuItemLinkDirective,
+    ...ngRxSettings,
+    ...materialModules,
+    ...directives,
   ],
   providers: [
     EditorService,
@@ -130,7 +142,7 @@ export class AppModule {
     private entityDataService: EntityDataService,
     private chapterDataService: ChaptersDataService
   ) {
-    this.eds.registerMetadataMap(entityConfig.entityEntityMetadata);
+    this.eds.registerMetadataMap(entityMetaData);
     this.entityDataService.registerService('Chapter', this.chapterDataService);
   }
 }
