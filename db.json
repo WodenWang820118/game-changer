@@ -26,6 +26,11 @@
         "html": "<div class=\"red\">Hello World</div>\n<div>The answer</div>",
         "css": ".red { color: red; }",
         "js": "console.log(\"hi\")"
+      },
+      "answer": {
+        "html": "<div class=\"red\">The Answer</div>\n<div>The answer</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"answer\")"
       }
     },
     {
@@ -53,6 +58,11 @@
         "html": "<div class=\"red\">Hello World</div>\n<div>The answer with chapter2</div>",
         "css": ".red { color: red; }",
         "js": "console.log(\"hi\")"
+      },
+      "answer": {
+        "html": "<div class=\"red\">The Answer</div>\n<div>The answer</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"answer\")"
       }
     },
     {
@@ -72,6 +82,11 @@
         "html": "<div class=\"red\">Hello World</div>\n<div>The answer with chapter 3</div>",
         "css": ".red { color: red; }",
         "js": "console.log(\"hi\")"
+      },
+      "answer": {
+        "html": "<div class=\"red\">The Answer</div>\n<div>The answer</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"answer\")"
       }
     },
     {
@@ -85,6 +100,11 @@
         "html": "<div class=\"red\">Hello World</div>\n<div>The answer unkown</div>",
         "css": ".red { color: red; }",
         "js": "console.log(\"hi\")"
+      },
+      "answer": {
+        "html": "<div class=\"red\">The Answer</div>\n<div>The answer</div>",
+        "css": ".red { color: red; }",
+        "js": "console.log(\"answer\")"
       }
     }
   ]

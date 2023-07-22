@@ -8,4 +8,9 @@ export interface Chapter {
     css: string;
     js: string;
   };
+  answer?: {
+    html: string;
+    css: string;
+    js: string;
+  };
 }
