@@ -1,0 +1,99 @@
+.chapter {
+  p,
+  ol,
+  ul {
+    margin: 0 0 1em;
+  }
+
+  ul {
+    padding: 0 2rem;
+  }
+
+  li {
+    line-height: $line-height-lg;
+  }
+
+  p {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-md;
+    text-align: justify;
+  }
+
+  h2 {
+    margin: 0rem 0 1.6rem;
+    font-size: $font-size-h1;
+    font-weight: $font-weight-normal;
+    color: $back;
+    line-height: $line-height-sm;
+  }
+
+  &__content {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 0;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    font-size: $font-size-xl;
+    font-weight: $font-weight-light;
+
+    &__btn {
+      border: none;
+      top: 0.1em;
+      border-radius: $border-radius;
+      padding: 0.5rem 1rem;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-light;
+      color: $light;
+      background-color: $danger;
+      cursor: pointer;
+    }
+
+    &__control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5em;
+      cursor: pointer;
+    }
+
+    &__arrow-forward {
+      padding-top: 0.1em;
+      transform: scale(0.8);
+    }
+  }
+
+  &__editor {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 20px;
+    width: fit-content;
+
+    &__edit {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      border-left: 2px solid $light;
+      cursor: pointer;
+
+      &:hover {
+        border-bottom: 1px solid $light;
+      }
+    }
+
+    &__icon {
+      transform: scale(0.75);
+    }
+  }
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}

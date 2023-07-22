@@ -1,0 +1,36 @@
+<div class="navigation">
+  <a href="#" class="navigation__logo"></a>
+  <game-play-button (click)="onPlay()"></game-play-button>
+  <game-menu></game-menu>
+</div>
+
+<main>
+  <div class="tutorial">
+    <div class="tutorial__outer">
+      <div class="tutorial__outer__viewport" #viewport>
+        <game-sidebar />
+        <div class="editor-layout">
+          <div class="editor-layout__code-editor" gameDivResizable>
+            <game-editor-viewport
+              class="editor-layout__code-editor__viewport" />
+          </div>
+          <div class="editor-layout__code-preview" gameDivResizable>
+            <game-renderer-viewport
+              class="editor-layout__code-preview__viewport" />
+          </div>
+          <div
+            class="editor-layout__code-console collapsed"
+            gameDivResizable
+            gameConsoleInteract>
+            <div class="editor-layout__code-console__viewport">
+              <game-editor-console />
+            </div>
+          </div>
+        </div>
+      </div>
+      <game-tablet-viewport-switches
+        class="editor-layout__switches"
+        [viewport]="viewport" />
+    </div>
+  </div>
+</main>

@@ -1,0 +1,60 @@
+.navigation {
+  position: fixed;
+  width: $viewport-w;
+  height: $nav-height;
+  margin: 0 auto;
+  background-color: $back;
+  font-family: $font-family-sans-serif;
+  z-index: 100;
+  user-select: none;
+  transition: transform .2s;
+  border-bottom: $border-bottom-color 2px solid;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  @include nav-screen($screen-tablet2);
+
+  &__nav {
+    cursor: pointer;
+    margin-right: 4rem;
+
+    @media (min-width: $screen-tablet2) {
+      margin-right: 4rem;    
+    }
+  }
+
+  &__col__nav {
+    margin-right: 3rem;
+    cursor: pointer;
+
+    @media (min-width: $screen-tablet2) {
+      display: none;
+    }
+  }
+
+  &__logo {
+    background-image: url('../../assets/icons8-artstation-48.svg');
+    width: calc($logo-w * 0.4);
+    height: $nav-height;
+    display: flex;
+    align-items: center;
+    text-indent: -9999px;
+    background-position: calc($side-nav - 1rem) 50%;
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    position: relative;
+
+    @media (min-width: $screen-tablet2) {
+      width: $logo-w;
+      padding: 0 $side-nav 0 0;
+      justify-content: end;
+    }
+  }
+
+  &__list {
+    @include external-screen($screen-tablet2);
+  }
+}
