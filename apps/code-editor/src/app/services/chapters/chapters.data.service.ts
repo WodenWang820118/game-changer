@@ -10,6 +10,22 @@ import { FirebaseService } from '@game/data-access/code-editor-data';
 @Injectable()
 export class ChaptersDataService extends DefaultDataService<Chapter> {
   private localUrl = 'http://localhost:3000/chapters';
+  private errorChapter: Chapter = {
+    id: 0,
+    title: 'Backend Error',
+    order: 0,
+    content: ['Failed to get chapters from the JSON server'],
+    code: {
+      html: '',
+      css: '',
+      js: '',
+    },
+    answer: {
+      html: '',
+      css: '',
+      js: '',
+    },
+  };
   constructor(
     http: HttpClient,
     httpUrlGenerator: HttpUrlGenerator,
@@ -24,18 +40,8 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
       return this.http.get<Chapter[]>(this.localUrl).pipe(
         catchError(() => {
           const errorMessage = ['Failed to get chapters from the JSON server'];
-          const errorChapter: Chapter = {
-            id: 0,
-            title: 'Backend Error',
-            order: 0,
-            content: errorMessage,
-            code: {
-              html: '',
-              css: '',
-              js: '',
-            },
-          };
-          return of([errorChapter]);
+          this.errorChapter.content = errorMessage;
+          return of([this.errorChapter]);
         })
       );
     }
@@ -43,18 +49,8 @@ export class ChaptersDataService extends DefaultDataService<Chapter> {
       return this.firebaseService.getAllChapters().pipe(
         catchError(() => {
           const errorMessage = ['Failed to get chapters from the Firebase'];
-          const errorChapter: Chapter = {
-            id: 0,
-            title: 'Backend Error',
-            order: 0,
-            content: errorMessage,
-            code: {
-              html: '',
-              css: '',
-              js: '',
-            },
-          };
-          return of([errorChapter]);
+          this.errorChapter.content = errorMessage;
+          return of([this.errorChapter]);
         })
       );
     }

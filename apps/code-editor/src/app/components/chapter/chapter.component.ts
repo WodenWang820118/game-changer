@@ -3,9 +3,11 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   Output,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,7 +17,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { Chapter } from '@game/data-access/code-editor-data';
-import { ToggleAnswerDirective } from '../../directives/toggle-answer.directive';
 import { EditorComponent } from '../editor/editor.component';
 import { ChapterEntityService } from '../../services/chapters/chapter-entity.service';
 import { EMPTY, combineLatest, switchMap, take } from 'rxjs';
@@ -35,7 +36,6 @@ import { EditorView } from 'codemirror';
     MatIconModule,
     MarkdownModule,
     MatButtonModule,
-    ToggleAnswerDirective,
     EditorComponent,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -68,7 +68,10 @@ import { EditorView } from 'codemirror';
       <ng-template #editorControls>
         <ng-container *ngIf="(editorMode$ | async) === editorMode.DEFAULT">
           <div class="chapter__controls">
-            <button class="chapter__controls__btn" gameToggleAnswer>
+            <button
+              class="chapter__controls__btn"
+              (click)="switchAnswer()"
+              #answerSwitch>
               Show me
             </button>
             <div class="chapter__controls__control">
@@ -145,10 +148,12 @@ export class ChapterComponent implements AfterViewInit {
   @Input() chapter: Chapter | null = null;
   @Output() nextChapter = new EventEmitter<Chapter>();
   @Output() deleteChapter = new EventEmitter<Chapter>();
+  @ViewChild('answerSwitch') answerSwitch: ElementRef | undefined;
   editorMode: typeof EditorMode = EditorMode;
   editorMode$ = this.chapterUiService.mode$;
   title = new FormControl('');
   order = new FormControl();
+  switchMode: 'edit' | 'answer' = 'edit';
 
   constructor(
     private chapterEntityService: ChapterEntityService,
@@ -305,5 +310,40 @@ export class ChapterComponent implements AfterViewInit {
       },
     };
     this.chapterUiService.updateCurrentChapter(defaultChapter);
+  }
+
+  switchAnswer() {
+    if (!this.chapter) return;
+    if (this.switchMode === 'edit') {
+      this.switchMode = 'answer';
+      this.showAnswer();
+    } else {
+      this.switchMode = 'edit';
+      this.showEditor();
+    }
+  }
+
+  showAnswer() {
+    const btn = this.answerSwitch?.nativeElement;
+    if (!btn) return;
+    btn.innerHTML = 'Reset';
+    const htmlContent = this.chapter?.answer?.html as string;
+    const cssContent = this.chapter?.answer?.css as string;
+    const jsContent = this.chapter?.answer?.js as string;
+    this.editorService.setContent('html', htmlContent);
+    this.editorService.setContent('css', cssContent);
+    this.editorService.setContent('js', jsContent);
+  }
+
+  showEditor() {
+    const btn = this.answerSwitch?.nativeElement;
+    if (!btn) return;
+    btn.innerHTML = 'Show me';
+    const htmlContent = this.chapter?.code?.html as string;
+    const cssContent = this.chapter?.code?.css as string;
+    const jsContent = this.chapter?.code?.js as string;
+    this.editorService.setContent('html', htmlContent);
+    this.editorService.setContent('css', cssContent);
+    this.editorService.setContent('js', jsContent);
   }
 }
