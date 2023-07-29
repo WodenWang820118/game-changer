@@ -28,6 +28,7 @@ export class MenuComponent implements OnInit {
 
   @HostListener('window:resize')
   onChangingMenuType() {
+    // TODO: can share the variables with SCSS
     if (window.innerWidth <= 800) {
       this.showHamburgerMenu = true;
     } else {

@@ -22,6 +22,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { TabletViewportSwitchesComponent } from './components/tablet-switches/tablet-viewport-switches.component';
 import { EditorViewportComponent } from './components/editor/editor-viewport/editor-viewport.component';
 import { RendererViewportComponent } from './components/renderer/renderer-viewport/renderer-viewport.component';
+import { LoginInterfaceComponent } from './components/login-interface/login-interface.component';
 
 // directives
 import { ResizableDirective } from './directives/resizable.directive';
@@ -111,6 +112,7 @@ const directives = [
     TabletViewportSwitchesComponent,
     EditorViewportComponent,
     RendererViewportComponent,
+    LoginInterfaceComponent,
     NgScrollbarModule,
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
