@@ -27,7 +27,6 @@ import { LoginInterfaceComponent } from './components/login-interface/login-inte
 // directives
 import { ResizableDirective } from './directives/resizable.directive';
 import { ConsoleInteractDirective } from './directives/console-interact.directive';
-import { MenuItemLinkDirective } from './directives/menu-item-link.directive';
 
 // services
 import { EditorService } from './services/editor/editor.service';
@@ -91,11 +90,7 @@ const entityMetaData: EntityMetadataMap = {
 
 const materialModules = [MatTabsModule, MatIconModule];
 
-const directives = [
-  ResizableDirective,
-  ConsoleInteractDirective,
-  MenuItemLinkDirective,
-];
+const directives = [ResizableDirective, ConsoleInteractDirective];
 
 @NgModule({
   declarations: [AppComponent],

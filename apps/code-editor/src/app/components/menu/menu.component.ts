@@ -2,6 +2,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HamburgerMenuComponent } from './hamburger-menu/hamburger-menu.component';
 import { RegularMenuComponent } from './regular-menu/regular-menu.component';
+import { menuItems } from './menuItems';
 
 @Component({
   selector: 'game-menu',
@@ -21,7 +22,7 @@ import { RegularMenuComponent } from './regular-menu/regular-menu.component';
 })
 export class MenuComponent implements OnInit {
   @Input() showHamburgerMenu = false;
-  menuItems = ['Discord', 'GitHub', 'Sign In'];
+  menuItems = menuItems;
   ngOnInit() {
     this.onChangingMenuType();
   }

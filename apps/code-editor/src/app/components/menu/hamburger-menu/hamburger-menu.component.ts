@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { User } from 'firebase/auth';
 
 @Component({
   selector: 'game-hamburger-menu',
@@ -14,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
     </button>
     <mat-menu #menu="matMenu" class="mat-menu">
       <button mat-menu-item *ngFor="let menuItem of menuItems">
-        {{ menuItem }}
+        {{ menuItem.text }}
       </button>
     </mat-menu>
   `,
@@ -33,5 +34,5 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class HamburgerMenuComponent {
   @Input() showMenu = false;
-  @Input() menuItems: string[] = [];
+  @Input() menuItems: { text: string; user?: User }[] = [];
 }

@@ -12,6 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormControl } from '@angular/forms';
 import { FirebaseAuthService } from '@game/data-access/authentication';
+import { of, switchMap, catchError } from 'rxjs';
+import { User, UserCredential } from 'firebase/auth';
+import { FirebaseUserService } from '@game/data-access/user';
 
 @Component({
   selector: 'game-login-interface',
@@ -95,11 +98,15 @@ import { FirebaseAuthService } from '@game/data-access/authentication';
 })
 export class LoginInterfaceComponent {
   @Input() isOpen = false;
-  @Input() trigger!: ElementRef;
+  @Input() trigger: ElementRef | undefined;
   @Output() closeEvent = new EventEmitter<void>();
+  @Output() userData = new EventEmitter<User | null>();
   emailFormControl: FormControl = new FormControl('');
 
-  constructor(private firebaseAuthService: FirebaseAuthService) {}
+  constructor(
+    private firebaseAuthService: FirebaseAuthService,
+    private firebaseUserService: FirebaseUserService
+  ) {}
 
   closeOverlay() {
     this.closeEvent.emit();
@@ -108,5 +115,43 @@ export class LoginInterfaceComponent {
   socialLogin(platForm: string) {
     // TODO: implement social login
     console.warn('Social login not implemented');
+    if (platForm === 'google') {
+      this.firebaseAuthService
+        .signInWithGoogle()
+        .pipe(
+          switchMap((credential: UserCredential) => {
+            console.log('Signed in with Google');
+            const user = credential.user;
+            return this.firebaseUserService.checkUserExists(user).pipe(
+              switchMap(userExists => {
+                if (userExists) {
+                  console.warn('User already exists');
+                  console.warn('User: ', user);
+                  this.userData.emit(user);
+                  return of(user);
+                } else {
+                  console.warn('User does not exist');
+                  this.firebaseUserService.createUser(user);
+                  console.warn('User: ', user);
+                  this.userData.emit(user);
+                  return of(user);
+                }
+              })
+            );
+          }),
+          catchError(error => {
+            console.warn('Failed to sign in with Google');
+            this.userData.emit(null);
+            return error;
+          })
+        )
+        .subscribe();
+    }
+    if (platForm === 'facebook') {
+      console.warn('Facebook login not implemented');
+    }
+    if (platForm === 'line') {
+      console.warn('Line login not implemented');
+    }
   }
 }
