@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  QueryList,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -15,7 +7,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { LoginInterfaceComponent } from '../../login-interface/login-interface.component';
 import { User } from 'firebase/auth';
 import { FirebaseAuthService } from '@game/data-access/authentication';
-import { tap } from 'rxjs';
+import { BaseMenuComponent } from '../base-menu.component';
 
 @Component({
   selector: 'game-hamburger-menu',
@@ -35,15 +27,15 @@ import { tap } from 'rxjs';
     <mat-menu #menu="matMenu" class="mat-menu">
       <button
         mat-menu-item
-        (click)="activateMenuItem(menuItem)"
+        (click)="activateMenuItem(menuItem, triggerButton)"
         cdkOverlayOrigin
-        #trigger="cdkOverlayOrigin"
+        #triggerButton="cdkOverlayOrigin"
         *ngFor="let menuItem of menuItems">
         {{ menuItem.text }}
       </button>
     </mat-menu>
     <game-login-interface
-      [trigger]="trigger"
+      [trigger]="activeTrigger"
       [isOpen]="isOpen"
       (closeEvent)="closeLoginInterface()"
       (userData)="handleUserData($event)"></game-login-interface>
@@ -61,74 +53,20 @@ import { tap } from 'rxjs';
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class HamburgerMenuComponent implements OnInit, AfterViewInit {
+export class HamburgerMenuComponent
+  extends BaseMenuComponent
+  implements OnInit
+{
   @Input() showMenu = false;
-  @Input() menuItems: { text: string; user?: User }[] = [];
-
-  menuItemsRefs!: QueryList<ElementRef>;
-  trigger: ElementRef | undefined;
-  isOpen = false;
-  currentMenuItem: { text: string; user?: User } = { text: '' };
-  signIn = 'Sign In';
-
-  constructor(private firebaseAuthService: FirebaseAuthService) {}
-
-  ngOnInit() {
-    this.firebaseAuthService
-      .authState()
-      .pipe(
-        tap(user => {
-          if (user) {
-            console.warn('User: ', user);
-            this.currentMenuItem = { text: user.displayName as string, user };
-            // Find index of the 'Sign In' item
-            const index = this.menuItems.findIndex(
-              item => item.text === this.signIn
-            );
-
-            // Replace the 'Sign In' item with new item
-            if (index !== -1) {
-              this.menuItems[index] = this.currentMenuItem;
-            }
-          }
-        })
-      )
-      .subscribe();
+  @Input() override set menuItems(value: { text: string; user?: User }[]) {
+    super.menuItems = value;
   }
 
-  ngAfterViewInit() {
-    this.trigger = this.menuItemsRefs.find(
-      item => item.nativeElement.innerText === this.signIn
-    );
+  override get menuItems() {
+    return super.menuItems;
   }
 
-  activateMenuItem(menuItem: { text: string; user?: User }) {
-    if (menuItem.text === this.signIn) {
-      console.warn('Signing in with Google');
-      this.currentMenuItem = menuItem;
-      this.isOpen = true;
-    }
-  }
-
-  closeLoginInterface() {
-    this.isOpen = false;
-  }
-
-  handleUserData(user: User | null) {
-    console.warn('User: ', user);
-    if (user && this.currentMenuItem.text === this.signIn) {
-      console.warn('User: ', user.displayName);
-      this.currentMenuItem = { text: user.displayName as string, user };
-
-      // Find index of the 'Sign In' item
-      const index = this.menuItems.findIndex(item => item.text === this.signIn);
-
-      // Replace the 'Sign In' item with new item
-      if (index !== -1) {
-        this.menuItems[index] = this.currentMenuItem;
-      }
-
-      this.closeLoginInterface();
-    }
+  constructor(firebaseAuthService: FirebaseAuthService) {
+    super(firebaseAuthService);
   }
 }

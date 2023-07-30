@@ -28,7 +28,10 @@ import { FirebaseUserService } from '@game/data-access/user';
   ],
   styleUrls: ['../../../styles.scss', './login-interface.component.scss'],
   template: `
-    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="isOpen">
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOpen]="isOpen"
+      [cdkConnectedOverlayOrigin]="trigger">
       <div class="login">
         <div class="login__close" (click)="closeOverlay()">
           <mat-icon>highlight_off</mat-icon>
@@ -98,7 +101,7 @@ import { FirebaseUserService } from '@game/data-access/user';
 })
 export class LoginInterfaceComponent {
   @Input() isOpen = false;
-  @Input() trigger: ElementRef | undefined;
+  @Input() trigger!: ElementRef;
   @Output() closeEvent = new EventEmitter<void>();
   @Output() userData = new EventEmitter<User | null>();
   emailFormControl: FormControl = new FormControl('');
