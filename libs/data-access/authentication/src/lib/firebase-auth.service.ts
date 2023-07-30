@@ -11,9 +11,10 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
+  User,
 } from 'firebase/auth';
 import { Inject, Injectable } from '@angular/core';
-import { catchError, from, of } from 'rxjs';
+import { Observable, catchError, from, of } from 'rxjs';
 
 @Injectable()
 export class FirebaseAuthService {
@@ -65,5 +66,16 @@ export class FirebaseAuthService {
     if (!getAuth())
       return from(Promise.reject('Firebase Auth not initialized'));
     return from(signOut(getAuth()));
+  }
+
+  authState(): Observable<User | null> {
+    return new Observable<User | null>(observer => {
+      const unsubscribe = getAuth().onAuthStateChanged(user => {
+        observer.next(user);
+      });
+
+      // Provide a way of canceling the subscription
+      return { unsubscribe };
+    });
   }
 }
