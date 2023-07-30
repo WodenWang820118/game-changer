@@ -29,8 +29,13 @@ export class MenuComponent implements OnInit {
 
   @HostListener('window:resize')
   onChangingMenuType() {
-    // TODO: can share the variables with SCSS
-    if (window.innerWidth <= 800) {
+    const sizeTablet2 = parseInt(
+      window
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue('--screen-tablet2')
+        .replace('px', '')
+    );
+    if (window.innerWidth <= sizeTablet2) {
       this.showHamburgerMenu = true;
     } else {
       this.showHamburgerMenu = false;
