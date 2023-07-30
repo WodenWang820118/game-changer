@@ -40,8 +40,6 @@ export class FirebaseService {
         // return chaptersSnapshot.docs.map(doc => doc.data()) as Chapter[]
         return chaptersSnapshot.docs.map(doc => {
           const chapter = doc.data() as Chapter;
-          console.warn('chapter', chapter);
-          console.warn('chapter.id', chapter.id);
           return chapter;
         });
       })
@@ -66,8 +64,6 @@ export class FirebaseService {
       });
     // the document id is the same as the chapter id
     const chapterDoc = doc(this.db, this.CHAPTERS_COLLECTION, String(id));
-    console.warn('chapter', chapter);
-    console.warn('chapterDoc', chapterDoc);
     return from(updateDoc(chapterDoc, chapter)).pipe(
       map(() => chapter as Chapter)
     );

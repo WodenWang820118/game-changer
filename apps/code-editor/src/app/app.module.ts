@@ -22,11 +22,11 @@ import { MenuComponent } from './components/menu/menu.component';
 import { TabletViewportSwitchesComponent } from './components/tablet-switches/tablet-viewport-switches.component';
 import { EditorViewportComponent } from './components/editor/editor-viewport/editor-viewport.component';
 import { RendererViewportComponent } from './components/renderer/renderer-viewport/renderer-viewport.component';
+import { LoginInterfaceComponent } from './components/login-interface/login-interface.component';
 
 // directives
 import { ResizableDirective } from './directives/resizable.directive';
 import { ConsoleInteractDirective } from './directives/console-interact.directive';
-import { MenuItemLinkDirective } from './directives/menu-item-link.directive';
 
 // services
 import { EditorService } from './services/editor/editor.service';
@@ -90,11 +90,7 @@ const entityMetaData: EntityMetadataMap = {
 
 const materialModules = [MatTabsModule, MatIconModule];
 
-const directives = [
-  ResizableDirective,
-  ConsoleInteractDirective,
-  MenuItemLinkDirective,
-];
+const directives = [ResizableDirective, ConsoleInteractDirective];
 
 @NgModule({
   declarations: [AppComponent],
@@ -111,6 +107,7 @@ const directives = [
     TabletViewportSwitchesComponent,
     EditorViewportComponent,
     RendererViewportComponent,
+    LoginInterfaceComponent,
     NgScrollbarModule,
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),

@@ -145,7 +145,7 @@ export class SidebarNavComponent implements OnInit {
         first(),
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         tap(([_, chapters]) => {
-          console.warn(chapters);
+          // console.warn(chapters);
           this.chapter$ = of(
             chapters.find(chapter => chapter.order === chapter.order - 1) ||
               chapters[0]

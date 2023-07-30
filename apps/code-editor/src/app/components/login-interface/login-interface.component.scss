@@ -1,0 +1,74 @@
+@import '@angular/material/theming';
+.login {
+  @include mat-elevation(4);
+  position: fixed;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  background-color: white;
+  padding: 3rem;
+
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+
+    &__email {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+    }
+
+    &__social {
+      display: flex;
+      flex-direction: row;
+      align-items: space-around;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 3rem;
+    }
+
+    &__actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    &__divider {
+      text-align: center;
+      margin: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .line {
+        flex-grow: 1;
+        height: 1px;
+        background: #000;
+      }
+
+      span {
+        padding: 0 1rem;
+      }
+    }
+  }
+
+  img {
+    cursor: pointer;
+  }
+}
